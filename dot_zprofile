@@ -1,0 +1,17 @@
+# this file is installed as ~/.zprofile for newly created users
+
+# prepend ~/.local/bin and ~/bin to $PATH unless it is already there
+if ! [[ "$PATH" =~ "$HOME/bin" ]]
+then
+    PATH="$HOME/bin:$PATH"
+fi
+if ! [[ "$PATH" =~ "$HOME/.local/bin:" ]]
+then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+export PATH
+
+# Enable 1Password SSH agent for dev containers
+export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
