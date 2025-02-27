@@ -1,0 +1,12 @@
+[user]
+	name = Niko Kultalahti
+	email = niko.kultalahti@gapps.fi
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHTI6zoCvmPy+Rh0NnkOziJwDGVFRS0aBJyxUcZNqzNi
+[color]
+	ui = auto
+[core]
+	editor = nano
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
