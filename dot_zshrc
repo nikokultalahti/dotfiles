@@ -25,7 +25,11 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 
-# Aliase
+# Set nano as the default editor
+export EDITOR=nano
+export VISUAL="$EDITOR"
+
+# Aliases
 
 # eza for ls
 if [ "$(command -v eza)" ]; then
