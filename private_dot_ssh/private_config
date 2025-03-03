@@ -12,3 +12,9 @@ Host github.com
 	PreferredAuthentications publickey
 	IdentityFile ~/.ssh/github.pub
 	IdentitiesOnly yes
+
+Host source.developers.google.com
+	HostName source.developers.google.com
+	User niko.kultalahti@gapps.fi
+	PreferredAuthentications publickey
+	IdentityFile ~/.ssh/gapps-google.cloud.pub
