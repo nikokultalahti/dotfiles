@@ -8,9 +8,12 @@
 	editor = nano
 [gpg]
 	format = ssh
-[gpg "ssh"]
-         program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
 [commit]
 	gpgsign = true
 [credential "https://source.developers.google.com"]
 	helper = gcloud.sh
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
