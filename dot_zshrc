@@ -10,8 +10,8 @@ compinit
 # Allow tab completion in the middle of a word
 setopt COMPLETE_IN_WORD
 
-# Set SSH AUTH SOCK for 1Password
-export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
+# Set SSH AUTH SOCK for Bitwarden
+export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 
 # Activate Starship, Atuin and Zoxide
 eval "$(starship init zsh)"
@@ -56,3 +56,8 @@ if [ "$(command -v ug)" ]; then
     alias xzegrep='ug -zE'
     alias xzfgrep='ug -zF'
 fi
+
+# Load NVM
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion

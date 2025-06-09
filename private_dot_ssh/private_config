@@ -1,11 +1,5 @@
 Host *
-	IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-
-Host forgejo
-	HostName git.kultalahti.synology.me
-	PreferredAuthentications publickey
-	IdentityFile ~/.ssh/forgejo.pub
-	IdentitiesOnly yes
+	IdentityAgent "~/.bitwarden-ssh-agent.sock"
 
 Host github.com
 	HostName github.com
