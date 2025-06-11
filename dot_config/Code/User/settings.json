@@ -10,5 +10,6 @@
     "terminal.integrated.minimumContrastRatio": 1,
     "git.autofetch": true,
     "git.confirmSync": true,
+    "workbench.startupEditor": "none",
     "git.enableCommitSigning": true
 }
