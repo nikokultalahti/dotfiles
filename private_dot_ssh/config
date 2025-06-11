@@ -1,0 +1,17 @@
+Host raspberry-local
+	HostName 192.168.8.200
+	User niko
+	Port 22
+	PreferredAuthentications publickey
+
+Host raspberry-evi-local
+	HostName 192.168.1.226
+	User niko
+	Port 22
+	PreferredAuthentications publickey
+	
+Host raspberry-wg
+	HostName 10.0.0.6
+	User niko
+	Port 22
+	PreferredAuthentications publickey

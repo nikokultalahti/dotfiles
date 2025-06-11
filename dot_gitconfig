@@ -1,0 +1,15 @@
+[user]
+    name = Niko Kultalahti
+    email = hello@nikokultalahti.com
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHTI6zoCvmPy+Rh0NnkOziJwDGVFRS0aBJyxUcZNqzNi
+[color]
+    ui = auto
+[core]
+    editor = "flatpak run re.sonny.Commit"
+[gpg]
+    format=ssh
+[commit]
+    gpgsign=true
+[re.sonny.Commit]
+    title-length-hint=50
+    body-length-wrap=72
