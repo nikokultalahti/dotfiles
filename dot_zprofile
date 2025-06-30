@@ -13,7 +13,7 @@ export PATH
 
 
 # Added by Toolbox App
-export PATH="$PATH:/var/home/nikokultalahti/.local/share/JetBrains/Toolbox/scripts"
+export PATH="$PATH:/var/home/niko/.local/share/JetBrains/Toolbox/scripts"
 
 # Enable Bitwarden  SSH agent (also for devcontainers)
 export SSH_AUTH_SOCK="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
