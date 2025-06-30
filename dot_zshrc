@@ -36,6 +36,9 @@ setopt COMPLETE_IN_WORD
 # ensure installing bluefin-cli detects zsh as shell
 SHELL=/usr/bin/zsh
 
+# source Starship
+eval "$(starship init zsh)"
+
 # source bluefin-cli tools/setup
 test -f /usr/share/ublue-os/bling/bling.sh && source /usr/share/ublue-os/bling/bling.sh
 
