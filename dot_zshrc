@@ -33,14 +33,8 @@ setopt COMPLETE_IN_WORD
 # autoload -U colors
 #colors
 
-# ensure installing bluefin-cli detects zsh as shell
-SHELL=/usr/bin/zsh
-
 # source Starship
 eval "$(starship init zsh)"
-
-# source bluefin-cli tools/setup
-test -f /usr/share/ublue-os/bling/bling.sh && source /usr/share/ublue-os/bling/bling.sh
 
 # Activate zsh autosuggestions and syntax highlightning
 source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
