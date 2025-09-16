@@ -33,12 +33,36 @@ setopt COMPLETE_IN_WORD
 # autoload -U colors
 #colors
 
-# source Starship
+# Initialize atuin
+eval "$(atuin init zsh)"
+
+# Initialize Starship
 eval "$(starship init zsh)"
 
-# Activate zsh autosuggestions and syntax highlightning
+# Initialize Zoxide
+eval "$(zoxide init zsh)"
+
+# source zsh autosuggestions and syntax highlightning
 source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /home/linuxbrew/.linuxbrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Set SSH AUTH SOCK for Bitwarden
 export SSH_AUTH_SOCK="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
+
+# Add uutils-coreutils to the PATH to enable using the commands by their normal names
+PATH="/home/linuxbrew/.linuxbrew/opt/uutils-coreutils/libexec/uubin:$PATH"
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
+# ALIASES
+# ls aliases
+if [ "$(command -v eza)" ]; then
+    alias ll='eza -l --icons=auto --group-directories-first'
+    alias l.='eza -d .*'
+    alias ls='eza'
+    alias l1='eza -1'
+fi
+
+# bat for cat
+alias cat='bat --style=plain --pager=never' 2>/dev/null
