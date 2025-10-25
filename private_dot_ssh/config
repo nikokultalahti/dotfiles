@@ -3,15 +3,21 @@ Host raspberry-local
 	User niko
 	Port 22
 	PreferredAuthentications publickey
+	IdentityFile ~/.ssh/raspberry
+	IdentitiesOnly yes
 
 Host raspberry-evi-local
 	HostName 192.168.1.226
 	User niko
 	Port 22
 	PreferredAuthentications publickey
-	
+	IdentityFile ~/.ssh/raspberry
+	IdentitiesOnly yes	
+
 Host raspberry-wg
 	HostName 10.0.0.6
 	User niko
 	Port 22
 	PreferredAuthentications publickey
+	IdentityFile ~/.ssh/raspberry
+	IdentitiesOnly yes

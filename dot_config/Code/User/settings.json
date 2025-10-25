@@ -11,5 +11,6 @@
     "git.autofetch": true,
     "git.confirmSync": true,
     "workbench.startupEditor": "none",
-    "git.enableCommitSigning": true
+    "git.enableCommitSigning": true,
+    "python.analysis.typeCheckingMode": "standard"
 }
