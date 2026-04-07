@@ -13,10 +13,11 @@ setopt COMPLETE_IN_WORD
 # Set SSH AUTH SOCK for Bitwarden
 export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 
-# Activate Starship, Atuin and Zoxide
-eval "$(starship init zsh)"
+# Activate Starship, Atuin, Zoxide, tv
 eval "$(atuin init zsh)"
+eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+eval "$(tv init zsh)"
 
 # Activate zsh autosuggestions and syntax highligtning
 source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -24,6 +25,9 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
+
+# Add Carapace
+source <(carapace _carapace)
 
 # Add gcloud git-credential.helper to PATH
 source $HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
@@ -57,7 +61,13 @@ if [ "$(command -v ug)" ]; then
     alias xzfgrep='ug -zF'
 fi
 
+# bat for cat
+alias cat='bat --style=plain --pager=never' 2>/dev/null
+
 # Load NVM
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# Set Google Cloud project for gemini-cli
+export GOOGLE_CLOUD_PROJECT="gapps-niko-sandbox"
