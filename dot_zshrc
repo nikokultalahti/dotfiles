@@ -64,6 +64,10 @@ fi
 # bat for cat
 alias cat='bat --style=plain --pager=never' 2>/dev/null
 
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ~='cd ~'
+
 # Load NVM
 export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
