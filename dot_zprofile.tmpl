@@ -1,6 +1,4 @@
-# this file is installed as ~/.zprofile for newly created users
-
-# prepend ~/.local/bin and ~/bin to $PATH unless it is already there
+# Prepend ~/.local/bin and ~/bin to $PATH unless it is already there
 if ! [[ "$PATH" =~ "$HOME/bin" ]]
 then
     PATH="$HOME/bin:$PATH"
@@ -11,9 +9,13 @@ then
 fi
 export PATH
 
-
-# Added by Toolbox App
+{{ if eq .chezmoi.os "linux" }}
 export PATH="$PATH:/var/home/niko/.local/share/JetBrains/Toolbox/scripts"
-
-# Enable Bitwarden  SSH agent (also for devcontainers)
 export SSH_AUTH_SOCK="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
+{{ end }}
+
+{{ if eq .chezmoi.os "darwin" }}
+export SSH_AUTH_SOCK="~/.bitwarden-ssh-agent.sock"
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{ end }}
+#

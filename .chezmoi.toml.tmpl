@@ -1,0 +1,12 @@
+# Run on chezmoi init
+{{ $is_work := promptBoolOnce . "is_work" "Is this a work machine (true/false)" }}
+
+[data]
+    is_work = {{ $is_work }}
+    
+    # You can also set specific variables based on the machine
+    {{ if $is_work }}
+    email = "niko.kultalahti@gappsgroup.com"
+    {{ else }}
+    email = "hello@nikokultalahti.com"
+    {{ end }}
