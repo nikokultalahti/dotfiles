@@ -1,0 +1,30 @@
+[user]
+    name = Niko Kultalahti
+    email = {{ .email }} # Uses the email defined in .chezmoi.toml.tmpl
+    signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHTI6zoCvmPy+Rh0NnkOziJwDGVFRS0aBJyxUcZNqzNi
+[color]
+    ui = auto
+[core]
+    {{ if eq .chezmoi.os "darwin" }}
+    editor = nano
+    {{ else }}
+    editor = "flatpak run re.sonny.Commit"
+    {{ end }}
+    excludesfile = /Users/niko/.gitignore
+[gpg]
+    format=ssh
+[commit]
+    gpgsign=true
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+{{ if eq .chezmoi.os "linux" }}
+[re.sonny.Commit]
+    title-length-hint=50
+    body-length-wrap=72
+{{ end }}
+[credential "https://source.developers.google.com"]
+	helper = gcloud.sh
+

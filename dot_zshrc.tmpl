@@ -1,0 +1,68 @@
+#
+# .zshrc is sourced in interactive shells.
+# It should contain commands to set up aliases,
+# functions, options, key bindings, etc.
+#
+
+autoload -U compinit
+compinit
+
+# Allow tab completion in the middle of a word
+setopt COMPLETE_IN_WORD
+
+# Initialize atuin, Starship, Zoxide, tv
+eval "$(atuin init zsh)"
+eval "$(starship init zsh)"
+eval "$(zoxide init zsh)"
+eval "$(tv init zsh)"
+
+# source zsh autosuggestions and syntax highlightning
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
+# Add Carapace
+source <(carapace _carapace)
+
+# Add gcloud git-credential.helper to PATH
+source $(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+
+{{ if eq .chezmoi.os "linux" }}
+# Set SSH AUTH SOCK for Bitwarden
+export SSH_AUTH_SOCK="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
+{{ end }}
+
+{{ if eq .chezmoi.os "darwin" }}
+# Set up pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
+
+# Load NVM
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# Set Google Cloud project for gemini-cli
+export GOOGLE_CLOUD_PROJECT="gapps-niko-sandbox"
+{{ end }}
+
+# ALIASES
+
+# eza for ls
+if command -v eza >/dev/null 2>&1; then
+    alias ll='eza -al --icons=auto --group-directories-first'
+    alias l.='eza -d .*'
+    alias ls='eza'
+    alias l1='eza -1'
+fi
+
+# bat for cat
+alias cat='bat --style=plain --pager=never' 2>/dev/null
+
+# cd aliases
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ~='cd ~'

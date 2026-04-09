@@ -1,0 +1,12 @@
+# Ignore these if we ARE NOT on MacOS
+{{ if ne .chezmoi.os "darwin" }} 
+.config/aerospace/**
+.config/zed/**
+Library/**
+{{ end }}
+
+# Ignore these if we ARE on MacOS
+{{ if eq .chezmoi.os "darwin" }} 
+.config/Code/**
+.bashrc
+{{ end }}
