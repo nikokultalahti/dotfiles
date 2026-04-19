@@ -20,11 +20,16 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
 {{ if eq .chezmoi.os "linux" }}
 [re.sonny.Commit]
     title-length-hint=50
     body-length-wrap=72
 {{ end }}
+
+{{ if .is_work }}
 [credential "https://source.developers.google.com"]
 	helper = gcloud.sh
-
+[url "git@bitbucket.org:"]
+    insteadOf = https://bitbucket.org/
+{{ end }}
