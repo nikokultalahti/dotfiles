@@ -7,6 +7,16 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "agent_servers": {
+    "opencode": {
+      "type": "registry",
+      "favorite_config_option_values": {
+        "model": [
+          "google/gemini-3.1-pro-preview"
+        ]
+      }
+    }
+  },
   "edit_predictions": {
     "provider": "copilot"
   },
