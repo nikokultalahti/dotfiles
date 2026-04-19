@@ -9,7 +9,7 @@ Host github.com
     IdentityFile ~/.ssh/github-auth
     IdentitiesOnly yes
 
-{{ if ne .is_work }}
+{{ if not .is_work }}
 Host raspberry-local
 	HostName 192.168.8.200
 	User niko
@@ -25,6 +25,7 @@ Host source.developers.google.com
     User niko.kultalahti@gapps.fi
     PreferredAuthentications publickey
     IdentityFile ~/.ssh/gapps-google.cloud.pub
+{{ end }}
 
 
 
