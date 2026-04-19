@@ -1,0 +1,33 @@
+{{ if eq .chezmoi.os "darwin" }}
+	Host *
+    IdentityAgent "~/.bitwarden-ssh-agent.sock"
+{{ end }}
+
+Host github.com
+    HostName github.com
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/github-auth
+    IdentitiesOnly yes
+
+{{ if ne .is_work }}
+Host raspberry-local
+	HostName 192.168.8.200
+	User niko
+	Port 22
+	PreferredAuthentications publickey
+	IdentityFile ~/.ssh/raspberry
+	IdentitiesOnly yes
+{{ end }}
+
+{{ if .is_work }}
+Host source.developers.google.com
+    HostName source.developers.google.com
+    User niko.kultalahti@gapps.fi
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/gapps-google.cloud.pub
+
+
+
+
+
+
