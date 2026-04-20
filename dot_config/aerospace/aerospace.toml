@@ -89,11 +89,11 @@ run = 'layout floating'
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-    inner.horizontal = 10
-    inner.vertical =   10
+    inner.horizontal = 15
+    inner.vertical =   15
     outer.left =       10
     outer.bottom =     10
-    outer.top =        10
+    outer.top =        5
     outer.right =      10
 
 # 'main' binding mode declaration
