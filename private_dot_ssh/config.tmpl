@@ -3,12 +3,6 @@
     IdentityAgent "~/.bitwarden-ssh-agent.sock"
 {{ end }}
 
-Host github.com
-    HostName github.com
-    PreferredAuthentications publickey
-    IdentityFile ~/.ssh/github-auth
-    IdentitiesOnly yes
-
 {{ if not .is_work }}
 Host raspberry-local
 	HostName 192.168.8.200
@@ -25,6 +19,12 @@ Host source.developers.google.com
     User niko.kultalahti@gapps.fi
     PreferredAuthentications publickey
     IdentityFile ~/.ssh/gapps-google.cloud.pub
+
+Host github.com
+    HostName github.com
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/github-auth
+    IdentitiesOnly yes
 {{ end }}
 
 
