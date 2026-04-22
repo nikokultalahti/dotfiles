@@ -1,3 +1,4 @@
+
 #
 # .zshrc is sourced in interactive shells.
 # It should contain commands to set up aliases,
@@ -38,7 +39,7 @@ export SSH_AUTH_SOCK="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-a
 
 {{ if eq .chezmoi.os "darwin" }}
 # Add gcloud git-credential.helper to PATH
-source $(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.in
+source $(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
 
 # Set up pyenv
 export PYENV_ROOT="$HOME/.pyenv"
