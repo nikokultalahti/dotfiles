@@ -1,16 +1,16 @@
 {{ if eq .chezmoi.os "darwin" }}
 Host *
-  	IdentityAgent "~/.bitwarden-ssh-agent.sock"
+    IdentityAgent "~/.bitwarden-ssh-agent.sock"
+    IdentitiesOnly yes
 {{ end }}
 
 {{ if not .is_work }}
 Host raspberry-local
-	HostName 192.168.8.200
-	User niko
-	Port 22
-	PreferredAuthentications publickey
-	IdentityFile ~/.ssh/raspberry
-	IdentitiesOnly yes
+    HostName 192.168.8.200
+    User niko
+    Port 22
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/raspberry.pub
 {{ end }}
 
 {{ if .is_work }}
@@ -18,13 +18,12 @@ Host source.developers.google.com
     HostName source.developers.google.com
     User niko.kultalahti@gapps.fi
     PreferredAuthentications publickey
-    IdentityFile ~/.ssh/gapps-google.cloud.pub
+    IdentityFile ~/.ssh/gapps-google-cloud.pub
 
 Host github.com
     HostName github.com
     PreferredAuthentications publickey
-    IdentityFile ~/.ssh/github-auth
-    IdentitiesOnly yes
+    IdentityFile ~/.ssh/github-auth.pub
 {{ end }}
 
 
