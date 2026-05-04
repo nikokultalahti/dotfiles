@@ -1,9 +1,10 @@
-{
-    "editor.fontFamily": "'Jetbrains Mono', 'Cascadia Code', 'Droid Sans Mono', 'monospace'",
+{,
+    "editor.fontFamily": "'JetbrainsMono Nerd Font', 'Cascadia Code', 'Droid Sans Mono', 'monospace'",
     // Catppuccin
     "workbench.colorTheme": "Catppuccin Mocha",
     "workbench.iconTheme": "catppuccin-mocha", 
     "editor.semanticHighlighting.enabled": true, // to make semantic highlighting look good
+    "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font'",
     "terminal.integrated.minimumContrastRatio": 1, // to prevent VSCode from modifying the terminal colors
     "window.titleBarStyle": "custom", // to make the window's titlebar use the workbench colors
     // Other settings
