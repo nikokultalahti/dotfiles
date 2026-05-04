@@ -1,6 +1,6 @@
 {{ if eq .chezmoi.os "darwin" }}
-	Host *
-    IdentityAgent "~/.bitwarden-ssh-agent.sock"
+Host *
+  	IdentityAgent "~/.bitwarden-ssh-agent.sock"
 {{ end }}
 
 {{ if not .is_work }}
