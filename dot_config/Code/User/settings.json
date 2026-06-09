@@ -12,5 +12,6 @@
     "terminal.integrated.defaultProfile.linux": "zsh",
     "git.autofetch": true,
     "git.confirmSync": true,
-    "git.enableCommitSigning": true
+    "git.enableCommitSigning": true,
+    "workbench.secondarySideBar.defaultVisibility": "visible"
 }
