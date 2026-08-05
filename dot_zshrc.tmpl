@@ -53,7 +53,22 @@ export NVM_DIR="$HOME/.nvm"
 
 # Set Google Cloud project for gemini-cli
 export GOOGLE_CLOUD_PROJECT="gapps-niko-sandbox"
+
+# Fixes Ghostty backspace bug over gcloud compute ssh & IAP tunnels
+gcloud() {
+    # Detects if 'compute ssh' is invoked anywhere in the command arguments
+    if [[ "$*" == *"compute ssh"* ]]; then
+        TERM=xterm-256color command gcloud "$@"
+    else
+        command gcloud "$@"
+    fi
+}
 {{ end }}
+
+# Fixes SSH Remote issues with ghosttty
+if [[ -n "$SSH_CONNECTION" ]]; then
+    export TERM=xterm-256color
+fi
 
 # ALIASES
 
