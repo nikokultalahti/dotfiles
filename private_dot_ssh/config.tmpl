@@ -10,9 +10,9 @@ Host github.com
     IdentityFile ~/.ssh/github-auth.pub
 
 {{ if not .is_work }}
-{{ (bitwarden "note" "Dotfiles - SSH Config - Personal").value }}
+{{ (bitwarden "item" "Dotfiles - SSH Config - Personal").notes }}
 {{ end }}
 
 {{ if .is_work }}
-{{ (bitwarden "note" "Dotfiles - SSH Config - Personal").value }}
+{{ (bitwarden "item" "Dotfiles - SSH Config - Work").notes }}
 {{ end }}
