@@ -16,3 +16,6 @@
     machine_type = {{ $machine_type | quote }}
     email = {{ $email | quote }}
     is_work_machine = {{ eq $machine_type "work" }}
+
+[bitwarden]
+    unlock = auto
