@@ -1,19 +1,23 @@
-# Prompt on first init, but don't re-prompt on subsequent init if the data is there.
-# https://www.chezmoi.io/docs/how-to/#re-create-your-config-file
+{{/*
+   chezmoi config template.
+   Rendered to ~/.config/chezmoi/chezmoi.toml on `chezmoi init`.
+   Re-run `chezmoi init` after editing to regenerate.
+   https://www.chezmoi.io/docs/how-to/#re-create-your-config-file
+*/ -}}
 
 {{- $machine_type := promptStringOnce . "machine_type" "Machine type (personal|work)" -}}
+
 {{- $email := "" -}}
-
 {{- if eq $machine_type "work"}}
-{{- $email := promptStringOnce . "email" "Git email address for the author/committer" -}}
+    {{- $email := promptStringOnce . "email" "Git email address for the author/committer" -}}
 {{- else -}}
-{{- $email := "hello@nikokultalahti.com" -}}
+{{- $email = "hello@nikokultalahti.com" -}}
 {{- end -}}
-
-[data]
-    machine_type = {{- $machine_type | quote -}}
-    email = {{- $email | quote -}}
-    is_work_machine = {{- eq $machine_type "work" -}}
 
 [bitwarden]
     unlock = "auto"
+
+[data]
+    machine_type = {{ $machine_type | quote }}
+    email = {{ $email | quote }}
+    is_work_machine = {{ eq $machine_type "work" }}
