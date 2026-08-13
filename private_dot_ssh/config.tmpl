@@ -9,10 +9,10 @@ Host github.com
     PreferredAuthentications publickey
     IdentityFile ~/.ssh/github-auth.pub
 
-{{ if not .is_work }}
+{{ if ne .machine_type "work" }}
 {{ (bitwarden "item" "Dotfiles - SSH Config - Personal").notes }}
 {{ end }}
 
-{{ if .is_work }}
+{{ if eq .machine_type "work" }}
 {{ (bitwarden "item" "Dotfiles - SSH Config - Work").notes }}
 {{ end }}

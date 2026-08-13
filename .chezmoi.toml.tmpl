@@ -1,12 +1,18 @@
-# Run on chezmoi init
-{{ $is_work := promptBoolOnce . "is_work" "Is this a work machine (true/false)" }}
+{{/*
+   chezmoi config template.
+   Rendered to ~/.config/chezmoi/chezmoi.toml on `chezmoi init`.
+   Re-run `chezmoi init` after editing to regenerate.
+*/ -}}
+
+{{ $machine_type := promptStringOnce . "machine_type" "Machine type (personal|work)" }}
+
+{{ if eq $machine_type "work" }}
+{{ $email := promptStringOnce . "email" "Git email address for the author/committer" }}
+{{ else }}
+{{ $email := "hello@nikokultalahti.com" }}
+{{ end }}
 
 [data]
-    is_work = {{ $is_work }}
-    
-    # You can also set specific variables based on the machine
-    {{ if $is_work }}
-    email = "niko.kultalahti@gappsgroup.com"
-    {{ else }}
-    email = "hello@nikokultalahti.com"
-    {{ end }}
+    machine_type = {{ $machine_type | quote }}
+    email = {{ $email | quote }}
+    is_work_machine = {{ eq $machine_type "work" }}
