@@ -1,0 +1,18 @@
+{{ if eq .chezmoi.os "darwin" }}
+Host *
+    IdentityAgent "~/.bitwarden-ssh-agent.sock"
+    IdentitiesOnly yes
+{{ end }}
+
+Host github.com
+    HostName github.com
+    PreferredAuthentications publickey
+    IdentityFile ~/.ssh/github-auth.pub
+
+{{ if not .is_work }}
+{{ (bitwarden "note" "Dotfiles - SSH Config - Personal").value }}
+{{ end }}
+
+{{ if .is_work }}
+{{ (bitwarden "note" "Dotfiles - SSH Config - Personal").value }}
+{{ end }}
