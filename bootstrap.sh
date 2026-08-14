@@ -39,7 +39,7 @@ trap 'kill "$SUDO_PID" 2>/dev/null || true' EXIT
 install_homebrew() {
   if ! command -v brew &> /dev/null; then
     log "Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     
     if [[ "$(uname -s)" == "Linux" ]]; then
       local brew_eval='eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
@@ -62,7 +62,7 @@ install_homebrew() {
 
 install_chezmoi() {
   log "Installing chezmoi and bitwarden-cli..."
-  brew install chezmoi bitwarden-cli
+  brew install -y chezmoi bitwarden-cli
   
   if ! command -v chezmoi &> /dev/null; then
     error "chezmoi installation failed."
