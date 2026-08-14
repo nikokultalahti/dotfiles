@@ -117,38 +117,9 @@ init_dotfiles() {
   log "Dotfiles applied successfully."
 }
 
-# Load the newly applied shell config to ensure Homebrew and other tools are in PATH
-load_shell_config() {
-  log "Loading shell configuration..."
-  
-  # Determine the current shell
-  current_shell="${SHELL:-$(readlink /proc/$$/exe 2>/dev/null || echo "")}"
-  
-  # Try to load .zshrc if zsh is available or is the current shell
-  if command -v zsh &>/dev/null || [[ "$current_shell" == *"zsh"* ]]; then
-    if [[ -f "$HOME/.zshrc" ]]; then
-      source "$HOME/.zshrc"
-      log "Loaded .zshrc."
-      return
-    fi
-  fi
-  
-  # Fall back to .bashrc if bash is available or is the current shell
-  if command -v bash &>/dev/null || [[ "$current_shell" == *"bash"* ]]; then
-    if [[ -f "$HOME/.bashrc" ]]; then
-      source "$HOME/.bashrc"
-      log "Loaded .bashrc."
-      return
-    fi
-  fi
-  
-  log "No shell configuration file found to load."
-}
-
 install_homebrew
 install_chezmoi
 unlock_bitwarden
 init_dotfiles
-load_shell_config
 
-log "Bootstrap complete! Run 'chezmoi apply' to update dotfiles in the future."
+log "Bootstrap complete! Please restart the terminal to apply configuration changes."
