@@ -3,10 +3,6 @@
 
 set -euo pipefail
 
-# Logging functions
-log() { printf '\033[1;34m[bootstrap]\033[0m %s\n' "$*"; }
-error() { printf '\033[1;31m[bootstrap error]\033[0m %s\n' "$*" >&2; exit 1; }
-
 repo_dir='{{ .chezmoi.sourceDir }}'
 cd "$repo_dir"
 
@@ -17,9 +13,9 @@ case "$url" in
     ssh_url="$(printf '%s\n' "$url" \
       | sed -E 's#^https://github\.com/([^/]+)/(.+)$#git@github.com:\1/\2#')"
     git remote set-url origin "$ssh_url"
-    log "Switched origin to $ssh_url"
+    echo "Switched origin to $ssh_url"
     ;;
   *)
-    error "origin already uses SSH or is not a GitHub HTTPS URL: $url"
+    echo "origin already uses SSH or is not a GitHub HTTPS URL: $url"
     ;;
 esac
