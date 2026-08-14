@@ -1,4 +1,19 @@
 #!/bin/bash
+# Bootstrap script for dotfiles managed with chezmoi.
+#
+# Usage:
+#   bash <(curl -fsSL https://raw.githubusercontent.com/nikokultalahti/dotfiles/main/bootstrap.sh)
+#
+# Features:
+#   - Installs Homebrew (macOS and Linux)
+#   - Installs chezmoi and bitwarden-cli
+#   - Unlocks Bitwarden vault for secrets management
+#   - Initializes and applies dotfiles from https://github.com/nikokultalahti/dotfiles.git
+#
+# Requirements:
+#   - sudo access (for Homebrew installation)
+#   - Bitwarden CLI must be logged in (bw login) if not already configured
+
 set -euo pipefail
 
 # Request sudo upfront (for Homebrew installation on both Linux and macOS)
