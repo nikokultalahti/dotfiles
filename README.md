@@ -15,7 +15,7 @@ Managed with [chezmoi](https://www.chezmoi.io/).
 To set up your dotfiles on a new machine, run:
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/nikokultalahti/dotfiles/main/bootstrap.sh)
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/nikokultalahti/dotfiles/main/bootstrap.sh)"
 ```
 
 The bootstrap script will:

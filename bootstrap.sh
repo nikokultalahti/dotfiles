@@ -1,55 +1,35 @@
 #!/bin/bash
 # Bootstrap script for dotfiles managed with chezmoi.
-#
-# Usage:
-#   bash <(curl -fsSL https://raw.githubusercontent.com/nikokultalahti/dotfiles/main/bootstrap.sh)
-#
-# Features:
-#   - Installs Homebrew (macOS and Linux)
-#   - Installs chezmoi and bitwarden-cli
-#   - Unlocks Bitwarden vault for secrets management
-#   - Initializes and applies dotfiles from https://github.com/nikokultalahti/dotfiles.git
-#
-# Requirements:
-#   - sudo access (for Homebrew installation)
-#   - Bitwarden CLI must be logged in (bw login) if not already configured
 
 set -euo pipefail
 
-# Request sudo upfront (for Homebrew installation on both Linux and macOS)
+# Request sudo upfront
 echo "Requesting sudo access for Homebrew installation..."
 sudo -v || { echo "sudo access required for Homebrew installation."; exit 1; }
 
-# Keep sudo alive for the duration of the script
+# Keep sudo alive and gracefully terminate background job on exit
 while true; do
   sudo -n true 2>/dev/null || break
   sleep 60
-  kill -0 $$ || exit
-  done &
+  kill -0 $$ 2>/dev/null || exit
+done &
+SUDO_PID=$!
+trap 'kill "$SUDO_PID" 2>/dev/null || true' EXIT
 
-# Install Homebrew (macOS + Linux)
 install_homebrew() {
   if ! command -v brew &> /dev/null; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    
-    # Add Homebrew to PATH
-    local shell_config=""
+
     if [[ "$(uname -s)" == "Linux" ]]; then
-      shell_config="$HOME/.bashrc"
+      local brew_eval='eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
+      grep -qxF "$brew_eval" "$HOME/.bashrc" 2>/dev/null || echo "$brew_eval" >> "$HOME/.bashrc"
+      eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
     else
-      shell_config="$HOME/.zshrc"
+      local brew_eval='eval "$(/opt/homebrew/bin/brew shellenv)"'
+      grep -qxF "$brew_eval" "$HOME/.zshrc" 2>/dev/null || echo "$brew_eval" >> "$HOME/.zshrc"
+      eval "$(/opt/homebrew/bin/brew shellenv)"
     fi
-    
-    # Append eval line to shell config
-    if [[ "$(uname -s)" == "Linux" ]]; then
-      echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> "$shell_config"
-      source "$shell_config"
-    else
-      echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$shell_config"
-      source "$shell_config"
-    fi
-    
-    # Verify Homebrew is in PATH
+
     if ! command -v brew &> /dev/null; then
       echo "Homebrew installation failed: brew not found in PATH."
       exit 1
@@ -57,24 +37,20 @@ install_homebrew() {
   fi
 }
 
-# Install chezmoi and bitwarden
 install_chezmoi() {
   brew install chezmoi bitwarden-cli
-  
-  # Verify chezmoi is installed
+
   if ! command -v chezmoi &> /dev/null; then
     echo "chezmoi installation failed."
     exit 1
   fi
-  
-  # Verify bitwarden-cli is installed
+
   if ! command -v bw &> /dev/null; then
     echo "bitwarden-cli installation failed."
     exit 1
   fi
 }
 
-# Unlock Bitwarden vault
 unlock_bitwarden() {
   if ! bw status 2>/dev/null | grep -q '"status":"unlocked"'; then
     echo "Bitwarden vault is locked. Unlocking..."
@@ -89,20 +65,17 @@ unlock_bitwarden() {
   fi
 }
 
-# Initialize dotfiles
 init_dotfiles() {
   chezmoi init https://github.com/nikokultalahti/dotfiles.git
-  
-  # Validate chezmoi init succeeded
+
   if [[ ! -d "$HOME/.local/share/chezmoi" ]]; then
     echo "chezmoi init failed: dotfiles repository not found."
     exit 1
   fi
-  
+
   chezmoi apply
 }
 
-# Execute
 install_homebrew
 install_chezmoi
 unlock_bitwarden
