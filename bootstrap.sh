@@ -84,7 +84,7 @@ unlock_bitwarden() {
       log "You are not logged in to Bitwarden. Logging in (interactive)..."
       # Ensure connecting to Bitwarden EU's server
       bw config server https://vault.bitwarden.eu
-      bw login || error "Bitwarden login failed."
+      bw login --apikey || error "Bitwarden login failed."
       ;;
     *'"status":"locked"'*)
       log "Bitwarden vault is locked."
