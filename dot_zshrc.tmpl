@@ -11,9 +11,18 @@ compinit
 # Allow tab completion in the middle of a word
 setopt COMPLETE_IN_WORD
 
+# Add Homebrew to PATH
 {{ if eq .chezmoi.os "darwin" }}
+eval "$(/opt/homebrew/bin/brew shellenv)"
+{{ else }}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{ end }}
+
 # Set SSH AUTH SOCK for Bitwarden
+{{ if eq .chezmoi.os "darwin" }}
 export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
+{{ else }}
+export SSH_AUTH_SOCK="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
 {{ end }}
 
 # Initialize atuin, Starship, Zoxide, tv
@@ -31,11 +40,6 @@ source <(fzf --zsh)
 
 # Add Carapace
 source <(carapace _carapace)
-
-{{ if eq .chezmoi.os "linux" }}
-# Set SSH AUTH SOCK for Bitwarden
-export SSH_AUTH_SOCK="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
-{{ end }}
 
 {{ if eq .chezmoi.os "darwin" }}
 # Add gcloud git-credential.helper to PATH
