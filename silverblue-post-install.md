@@ -1,0 +1,88 @@
+# Fedora Silverblue Post Install 
+
+## System update
+
+Update system
+```bash
+rpm-ostree upgrade
+```
+
+Update flatpaks
+```bash
+flatpak update
+```
+
+Update Firmware
+```bash
+fwupdmgr refresh --force
+fwupdmgr get-devices
+fwupdmgr get-updates
+fwupdmgr update
+```
+
+Reboot
+```bash
+systemctl reboot
+```
+
+## Repositories
+
+Add Flathub repository
+```bash
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+```
+
+Remove unused repositories
+```bash
+sudo sed -i 's/enabled=1/enabled=0/' \
+/etc/yum.repos.d/_copr:copr.fedorainfracloud.org:phracek:PyCharm.repo \
+/etc/yum.repos.d/fedora-cisco-openh264.repo \
+/etc/yum.repos.d/google-chrome.repo \
+/etc/yum.repos.d/rpmfusion-nonfree-nvidia-driver.repo \
+/etc/yum.repos.d/rpmfusion-nonfree-steam.repo
+```
+
+Reinstall Fedora Flatpak repository applications with ones from Flathub
+```bash
+flatpak install --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
+```
+
+Remove Fedora flatpak repository
+```bash
+flatpak remote-delete fedora
+```
+
+## RPM-Ostree
+
+Remove Firefox and Gnome Tour
+```bash
+sudo rpm-ostree override remove firefox firefox-langpacks gnome-tour
+```
+
+## Services
+
+Enable Podman
+```bash
+systemctl --user enable podman.socket systemctl --user start podman.socket
+```
+
+## Settings
+Set ZSH as shell, either:
+
+A.) If installed via Homebrew
+Click on the Terminal settings, edit profile, select "Use Custom Command" and add `/home/linuxbrew/.linuxbrew/bin/zsh`
+
+B.) If layered
+```bash
+sudo chsh -s /usr/bin/zsh <username>
+```
+
+
+## Optional
+Layer packages
+```bash
+rpm-ostree install distrobox gnome-tweak-tool adw-gtk3-theme zsh qemu qemu-kvm
+```
+
+Configure NextDNS:
+Create a file in  `/etc/systemd/resolved.conf.d/`and set according to instructions in NextDNS Account Dashboard.
