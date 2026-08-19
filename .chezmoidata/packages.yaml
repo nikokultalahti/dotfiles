@@ -21,7 +21,7 @@ packages:
       - jq
       - kubernetes-cli
       - litra
-      - litra-autotoggle
+      - timrogers/tap/litra-autotoggle
       - mise
       - pre-commit
       - podman-tui
