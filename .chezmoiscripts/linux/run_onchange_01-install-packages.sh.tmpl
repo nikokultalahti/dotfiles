@@ -7,10 +7,10 @@ echo "[-] Starting package installation for Linux [-]"
 
 echo "[-] Installing brews [-]"
 {{ range .packages.common.brews -}}
-brew install {{ . | quote }}
+brew install -yq {{ . | quote }}
 {{ end -}}
 {{ range .packages.linux.brews -}}
-brew install {{ . | quote }}
+brew install -yq {{ . | quote }}
 {{ end -}}
 
 echo "[-] Installing Flatpak applications [-]"
