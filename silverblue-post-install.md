@@ -59,6 +59,11 @@ Remove Firefox and Gnome Tour
 sudo rpm-ostree override remove firefox firefox-langpacks gnome-tour
 ```
 
+Install required layered packages
+```bash
+sudo rpm-ostree install gcc
+```
+
 ## Services
 
 Enable Podman
