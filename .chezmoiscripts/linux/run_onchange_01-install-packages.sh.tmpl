@@ -5,8 +5,9 @@ set -e  # Exit on error
 
 echo "[-] Starting package installation for Linux [-]"
 
-echo "[-] Trusting Homebrew taps [-]"
+echo "[-] Adding Taps to Homebrew [-]"
 {{ range .packages.common.taps -}}
+brew tap {{ . | quote }}
 brew trust {{ . | quote }}
 {{ end -}}
 

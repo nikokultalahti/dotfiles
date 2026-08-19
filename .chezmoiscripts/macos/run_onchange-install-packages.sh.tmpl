@@ -5,11 +5,13 @@ set -e  # Exit on error
 
 echo "[-] Starting package installation for MacOS [-]"
 
-echo "[-] Trusting Homebrew taps [-]"
+echo "[-] Adding Taps to Homebrew [-]"
 {{ range .packages.common.taps -}}
+brew tap {{ . | quote }}
 brew trust {{ . | quote }}
 {{ end -}}
 {{ range .packages.darwin.taps -}}
+brew tap {{ . | quote }}
 brew trust {{ . | quote }}
 {{ end -}}
 
