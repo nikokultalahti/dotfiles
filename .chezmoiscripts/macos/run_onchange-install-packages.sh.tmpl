@@ -1,0 +1,42 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/sh
+
+set -e  # Exit on error
+
+echo "[-] Starting package installation for MacOS [-]"
+
+echo "[-] Installing brews [-]"
+{{ range .packages.common.brews -}}
+brew install {{ . | quote }}
+{{ end -}}
+{{ range .packages.darwin.brews -}}
+brew install {{ . | quote }}
+{{ end -}}
+
+echo "[-] Installing casks [-]"
+{{ range .packages.darwin.casks -}}
+brew install --cask {{ . | quote }}
+{{ end -}}
+
+echo "[-] Installing VS Code extensions [-]"
+{{ range .extensions.common.vscode -}}
+if ! code --list-extensions | grep -qF {{ . | quote }}; then
+    echo "Installing extension {{ . }}..."
+    code --force --install-extension {{ . | quote }}
+else
+    echo "Extension already installed: {{ . }}"
+fi
+{{ end -}}
+
+{{ range .extensions.darwin.vscode -}}
+if ! code --list-extensions | grep -qF {{ . | quote }}; then
+    echo "Installing extension {{ . }}..."
+    code --force --install-extension {{ . | quote }}
+else
+    echo "Extension already installed: {{ . }}"
+fi
+{{ end -}}
+
+echo "[-] Package installation completed [-]"
+
+{{ end -}}

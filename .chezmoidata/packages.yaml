@@ -1,0 +1,105 @@
+packages:
+  common:
+    brews:
+      - atuin
+      - bat
+      - bitwarden-cli
+      - block-goose-cli
+      - carapace
+      - chezmoi
+      - curl
+      - devcontainer
+      - direnv
+      - eza
+      - fabric-ai
+      - fd
+      - fzf
+      - gh
+      - git
+      - jq
+      - kubernetes-cli
+      - timrogers/tap/litra
+      - timrogers/tap/litra-autotoggle
+      - mise
+      - pre-commit
+      - podman-tui
+      - ripgrep
+      - shellcheck
+      - starship
+      - tealdeer
+      - tmux
+      - ugrep
+      - yq
+      - yt-dlp
+      - zoxide
+      - zsh
+      - zsh-autosuggestions
+      - zsh-syntax-highlighting
+  darwin:
+    brews:
+      - fluxcd/tap/flux
+      - controlplaneio-fluxcd/tap/flux-operator-mcp
+      - k9s
+      - kubeconform
+      - kubectx
+      - kustomize
+      - opencode
+      - opentofu
+      - podman
+      - podman-compose
+      - nvm
+      - pyenv
+      - sops
+      - terragrunt
+      - tfenv
+      - tflint
+    casks:
+      - nikitabobko/tap/aerospace
+      - block-goose
+      - claude-code
+      - firefox
+      - gcloud-cli
+      - ghostty
+      - google-chrome
+      - google-cloud-sdk
+      - obsidian
+      - podman-desktop
+      - raycast
+      - shortcat
+      - slack
+      - spotify
+      - visual-studio-code
+      - yubico-authenticator
+      - zed
+      - font-jetbrains-mono-nerd-font
+  linux:
+    brews:
+      - talosctl
+    flatpak:
+      - com.bitwarden.desktop
+      - com.github.tchx84.Flatseal
+      - com.mattjakeman.ExtensionManager
+      - io.github.flattool.Warehouse
+      - page.tesk.Refine
+      - io.github.flattool.Ignition
+      - org.gnome.Firmware
+extensions:
+  darwin:
+    vscode:
+      - mhutchie.git-graph
+      - ms-vscode-remote.remote-containers
+      - ms-azuretools.vscode-containers
+      - github.vscode-pull-request-github
+      - catppuccin.catppuccin-vsc
+      - catppuccin.catppuccin-vsc-icons
+      - codezombiech.gitignore
+      - anthropic.claude-code
+      - hashicorp.terraform
+      - hashicorp.hcl
+      - ms-python.python
+      - ms-python.vscode-pylance
+      - ms-python.debugpy
+      - ms-python.vscode-python-envs
+      - mechatroner.rainbow-csv
+      - matheysq94.tfs
+      - opentofu.vscode-opentofu
