@@ -1,4 +1,4 @@
-{,
+{
     "editor.fontFamily": "'JetbrainsMono Nerd Font', 'Cascadia Code', 'Droid Sans Mono', 'monospace'",
     // Catppuccin
     "workbench.colorTheme": "Catppuccin Mocha",

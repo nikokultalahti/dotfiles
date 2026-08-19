@@ -10,7 +10,7 @@
     {{ else }}
     editor = "flatpak run re.sonny.Commit"
     {{ end }}
-    excludesfile = /Users/niko/.gitignore
+    excludesfile = {{ .chezmoi.homeDir }}/.gitignore
 [gpg]
     format=ssh
 [commit]
