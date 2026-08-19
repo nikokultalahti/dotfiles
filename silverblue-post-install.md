@@ -66,7 +66,7 @@ sudo rpm-ostree install gcc
 
 ## Services
 
-Enable Podman
+Enable Podman:
 ```bash
 systemctl --user enable podman.socket systemctl --user start podman.socket
 ```
@@ -82,11 +82,15 @@ B.) If layered
 sudo chsh -s /usr/bin/zsh <username>
 ```
 
+Configure NextDNS:
+Create a file in  `/etc/systemd/resolved.conf.d/`and set according to instructions in NextDNS Account Dashboard.
+
+SSH Keys: Copy public SSH keys from Bitwarden to `~/.ssh
 
 ## Optional
 Layer packages
 ```bash
-rpm-ostree install distrobox gnome-tweak-tool adw-gtk3-theme zsh qemu qemu-kvm
+rpm-ostree install distrobox gnome-tweak-tool adw-gtk3-theme zsh qemu qemu-kvm pam-u2f pam_yubico yubikey-manager
 ```
 
 Configure NextDNS:
