@@ -1,5 +1,7 @@
 packages:
   common:
+    taps:
+      - timrogers/tap
     brews:
       - atuin
       - bat
@@ -18,8 +20,8 @@ packages:
       - git
       - jq
       - kubernetes-cli
-      - timrogers/tap/litra
-      - timrogers/tap/litra-autotoggle
+      - litra
+      - litra-autotoggle
       - mise
       - pre-commit
       - podman-tui
@@ -36,9 +38,13 @@ packages:
       - zsh-autosuggestions
       - zsh-syntax-highlighting
   darwin:
+    taps:
+      - fluxcd/tap
+      - controlplaneio-fluxcd/tap
+      - nikitabobko/tap
     brews:
-      - fluxcd/tap/flux
-      - controlplaneio-fluxcd/tap/flux-operator-mcp
+      - flux
+      - flux-operator-mcp
       - k9s
       - kubeconform
       - kubectx
@@ -54,7 +60,7 @@ packages:
       - tfenv
       - tflint
     casks:
-      - nikitabobko/tap/aerospace
+      - aerospace
       - block-goose
       - claude-code
       - firefox

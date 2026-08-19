@@ -5,7 +5,12 @@ set -e  # Exit on error
 
 echo "[-] Starting package installation for Linux [-]"
 
-echo "[-] Installing brews [-]"
+echo "[-] Trusting Homebrew taps [-]"
+{{ range .packages.common.taps -}}
+brew trust {{ . | quote }}
+{{ end -}}
+
+echo "[-] Installing Brews [-]"
 {{ range .packages.common.brews -}}
 brew install -yq {{ . | quote }}
 {{ end -}}
@@ -13,7 +18,7 @@ brew install -yq {{ . | quote }}
 brew install -yq {{ . | quote }}
 {{ end -}}
 
-echo "[-] Installing Flatpak applications [-]"
+echo "[-] Installing Flatpaks [-]"
 
 install_flatpak() {
     if ! flatpak list | grep -q "$1"; then
