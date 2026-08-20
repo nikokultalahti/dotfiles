@@ -64,9 +64,17 @@ sudo sed -i 's/enabled=1/enabled=0/' \
 
 ## Services
 
-Enable Podman:
+Enable and start Podman:
 ```bash
-systemctl --user enable podman.socket systemctl --user start podman.socket
+systemctl --user enable podman.socket 
+systemctl --user start podman.socket
+```
+
+## Apps and configurations
+
+Run the bootstap script:
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/nikokultalahti/dotfiles/main/bootstrap.sh)"
 ```
 
 ## Settings
