@@ -40,7 +40,7 @@ install_homebrew() {
   if ! command -v brew &> /dev/null; then
     log "Installing Homebrew..."
     NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    
+
     if [[ "$(uname -s)" == "Linux" ]]; then
       local brew_eval='eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"'
       grep -qxF "$brew_eval" "$HOME/.bashrc" 2>/dev/null || echo "$brew_eval" >> "$HOME/.bashrc"
@@ -50,7 +50,7 @@ install_homebrew() {
       grep -qxF "$brew_eval" "$HOME/.zshrc" 2>/dev/null || echo "$brew_eval" >> "$HOME/.zshrc"
       eval "$(/opt/homebrew/bin/brew shellenv)"
     fi
-    
+
     if ! command -v brew &> /dev/null; then
       error "Homebrew installation failed: brew not found in PATH."
     fi
@@ -63,15 +63,15 @@ install_homebrew() {
 install_chezmoi() {
   log "Installing chezmoi and bitwarden-cli..."
   brew install -y chezmoi bitwarden-cli
-  
+
   if ! command -v chezmoi &> /dev/null; then
     error "chezmoi installation failed."
   fi
-  
+
   if ! command -v bw &> /dev/null; then
     error "bitwarden-cli installation failed."
   fi
-  
+
   log "chezmoi and bitwarden-cli installed successfully."
 }
 
@@ -84,7 +84,7 @@ unlock_bitwarden() {
       log "You are not logged in to Bitwarden. Logging in (interactive)..."
       # Ensure connecting to Bitwarden EU's server
       bw config server https://vault.bitwarden.eu
-      bw login --apikey || error "Bitwarden login failed."
+      bw login || error "Bitwarden login failed."
       ;;
     *'"status":"locked"'*)
       log "Bitwarden vault is locked."
@@ -100,18 +100,18 @@ unlock_bitwarden() {
     BW_SESSION=$(bw unlock --raw) || error "Failed to unlock Bitwarden vault."
     export BW_SESSION
   fi
-  
+
   log "Bitwarden vault is unlocked."
 }
 
 init_dotfiles() {
   log "Initializing dotfiles from $REPO..."
   chezmoi init "$REPO"
-  
+
   if [[ ! -d "$HOME/.local/share/chezmoi" ]]; then
     error "chezmoi init failed: dotfiles repository not found."
   fi
-  
+
   log "Applying dotfiles..."
   chezmoi apply
   log "Dotfiles applied successfully."
