@@ -90,6 +90,7 @@ packages:
       - page.tesk.Refine
       - io.github.flattool.Ignition
       - org.gnome.Firmware
+      - org.mozilla.firefox
 extensions:
   darwin:
     vscode:

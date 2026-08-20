@@ -19,38 +19,7 @@ fwupdmgr get-devices
 fwupdmgr get-updates
 fwupdmgr update
 ```
-
 Reboot
-```bash
-systemctl reboot
-```
-
-## Repositories
-
-Add Flathub repository
-```bash
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-```
-
-Remove unused repositories
-```bash
-sudo sed -i 's/enabled=1/enabled=0/' \
-/etc/yum.repos.d/_copr:copr.fedorainfracloud.org:phracek:PyCharm.repo \
-/etc/yum.repos.d/fedora-cisco-openh264.repo \
-/etc/yum.repos.d/google-chrome.repo \
-/etc/yum.repos.d/rpmfusion-nonfree-nvidia-driver.repo \
-/etc/yum.repos.d/rpmfusion-nonfree-steam.repo
-```
-
-Reinstall Fedora Flatpak repository applications with ones from Flathub
-```bash
-flatpak install --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
-```
-
-Remove Fedora flatpak repository
-```bash
-flatpak remote-delete fedora
-```
 
 ## RPM-Ostree
 
@@ -64,6 +33,35 @@ Install required layered packages
 sudo rpm-ostree install gcc
 ```
 
+Reboot
+
+## Repositories
+
+Set up Flathub repository
+```bash
+# 1. Add Flathub
+sudo flatpak remote-add --if-not-exists --system flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+# 2. Enable and make sure it's unfiltered
+sudo flatpak remote-modify --system --no-filter --enable flathub
+
+# 3. Give Flathub priority when the same app exists in several remotes
+sudo flatpak remote-modify --system --prio=10 flathub
+
+# 4. Stop the Fedora remote from being enumerated, so it's not searched for apps, but is still used for updates
+sudo flatpak remote-modify --system --no-enumerate fedora
+```
+
+Remove unused repositories
+```bash
+sudo sed -i 's/enabled=1/enabled=0/' \
+/etc/yum.repos.d/_copr:copr.fedorainfracloud.org:phracek:PyCharm.repo \
+/etc/yum.repos.d/fedora-cisco-openh264.repo \
+/etc/yum.repos.d/google-chrome.repo \
+/etc/yum.repos.d/rpmfusion-nonfree-nvidia-driver.repo \
+/etc/yum.repos.d/rpmfusion-nonfree-steam.repo
+```
+
 ## Services
 
 Enable Podman:
@@ -72,6 +70,9 @@ systemctl --user enable podman.socket systemctl --user start podman.socket
 ```
 
 ## Settings
+
+Set up fingerprints.
+
 Set ZSH as shell, either:
 
 A.) If installed via Homebrew
