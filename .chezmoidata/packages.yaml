@@ -6,7 +6,6 @@ packages:
       - atuin
       - bat
       - bbrew
-      - bitwarden-cli
       - block-goose-cli
       - carapace
       - chezmoi
@@ -42,6 +41,7 @@ packages:
       - controlplaneio-fluxcd/tap
       - nikitabobko/tap
     brews:
+      - bitwarden-cli
       - flux
       - flux-operator-mcp
       - k9s
