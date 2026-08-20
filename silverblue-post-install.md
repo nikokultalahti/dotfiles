@@ -104,3 +104,7 @@ rpm-ostree install distrobox gnome-tweak-tool adw-gtk3-theme zsh qemu qemu-kvm p
 
 Configure NextDNS:
 Create a file in  `/etc/systemd/resolved.conf.d/`and set according to instructions in NextDNS Account Dashboard.
+
+Set up Firefox
+
+

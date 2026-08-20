@@ -64,3 +64,5 @@ If you prefer to set up manually:
 - Opencode Config
 - Script for macOS settings
 - Fedora Silverblue / GNOME settings
+- NextDNS Config copy to `/etc/systemd/resolved.conf.d/`, encrypt with age
+- MacOS Config is not working with Zed installed as Flatpak; create Linux config and add tochezmoi
