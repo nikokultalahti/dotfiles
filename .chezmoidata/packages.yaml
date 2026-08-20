@@ -5,11 +5,11 @@ packages:
     brews:
       - atuin
       - bat
+      - bbrew
       - bitwarden-cli
       - block-goose-cli
       - carapace
       - chezmoi
-      - curl
       - devcontainer
       - direnv
       - eza
@@ -17,7 +17,6 @@ packages:
       - fd
       - fzf
       - gh
-      - git
       - jq
       - kubernetes-cli
       - litra
@@ -35,7 +34,6 @@ packages:
       - yq
       - yt-dlp
       - zoxide
-      - zsh
       - zsh-autosuggestions
       - zsh-syntax-highlighting
   darwin:
@@ -84,13 +82,9 @@ packages:
       - talosctl
     flatpak:
       - com.bitwarden.desktop
-      - com.github.tchx84.Flatseal
-      - com.mattjakeman.ExtensionManager
-      - io.github.flattool.Warehouse
-      - page.tesk.Refine
-      - io.github.flattool.Ignition
-      - org.gnome.Firmware
-      - org.mozilla.firefox
+      - com.github.marhkb.Pods
+      - dev.qwery.AddWater
+      - re.sonny.Commit 
 extensions:
   darwin:
     vscode:
