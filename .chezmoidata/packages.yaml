@@ -29,6 +29,7 @@ packages:
       - shellcheck
       - starship
       - tealdeer
+      - television
       - tmux
       - ugrep
       - yq
