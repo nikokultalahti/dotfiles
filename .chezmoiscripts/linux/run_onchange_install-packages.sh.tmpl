@@ -24,7 +24,7 @@ echo "[-] Installing Flatpaks [-]"
 install_flatpak() {
     if ! flatpak list | grep -q "$1"; then
         echo "Installing $1..."
-        flatpak install --user -y "$1"
+        flatpak install --system -y "$1"
     else
         echo "$1 is already installed"
     fi
