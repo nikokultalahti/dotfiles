@@ -81,10 +81,50 @@ packages:
     brews:
       - talosctl
     flatpak:
+      - org.gnome.Firmware
+      - com.github.tchx84.Flatseal
+      - io.github.flattool.Warehouse
+      - com.mattjakeman.ExtensionManager
+      - io.github.flattool.Ignition
+      - io.gitlab.adhami3310.Impression
+      - org.gnome.FileRoller
+      - org.gnome.World.PikaBackup
+      - page.tesk.Refine
+      - io.github.getnf.embellish
       - com.bitwarden.desktop
       - com.github.marhkb.Pods
+      - org.gnome.Boxes
+      - io.podman_desktop.PodmanDesktop
+      - org.mozilla.firefox
+      - org.mozilla.thunderbird_esr
+      - org.libreoffice.LibreOffice
       - dev.qwery.AddWater
       - re.sonny.Commit 
+      - me.iepure.devtoolbox
+      - app.drey.Dialect
+      - be.alexandervanhee.gradia
+      - cafe.avery.Delfin
+      - com.github.PintaProject.Pinta
+      - com.github.finefindus.eyedropper
+      - com.github.jeromerobert.pdfarranger
+      - com.mardojai.ForgeSparks
+      - com.nextcloud.desktopclient.nextcloud
+      - com.yubico.yubioath
+      - de.haeckerfelix.Fragments
+      - de.schmidhuberj.tubefeeder
+      - org.nickvision.tubeconverter
+      - de.wwwtech.gitte
+      - dev.geopjr.Tuba
+      - io.github.alainm23.planify
+      - md.obsidian.Obsidian
+      - org.gnome.World.Iotas
+      - org.gnome.gitlab.cheywood.Pulp
+      - org.gnome.gitlab.somas.Apostrophe
+      - org.signal.Signal
+      - re.sonny.Eloquent
+      - app.fotema.Fotema
+      - com.github.maoschanz.drawing
+      - io.gitlab.adhami3310.Converter
 extensions:
   common:
     vscode:
