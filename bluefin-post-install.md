@@ -54,8 +54,10 @@ Set up Firefox.
 Set up apps.
 
 Copy public SSH keys from Bitwarden to `~/.ssh`
+
 Configure NextDNS:
-    - Create a file in  `/etc/systemd/resolved.conf.d/`and set according to instructions in NextDNS Account Dashboard.
+    - Create a file in  `/etc/systemd/resolved.conf.d/`and set according to instructions in NextDNS Account Dashboard
+    - Run `sudo systemctl reload systemd-resolved`
 
 
 
