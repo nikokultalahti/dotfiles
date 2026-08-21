@@ -34,6 +34,16 @@ install_flatpak() {
 install_flatpak {{ . | quote }}
 {{ end -}}
 
+echo "[-] Installing VS Code extensions [-]"
+{{ range .extensions.common.vscode -}}
+if ! code --list-extensions | grep -qF {{ . | quote }}; then
+    echo "Installing extension {{ . }}..."
+    code --force --install-extension {{ . | quote }}
+else
+    echo "Extension already installed: {{ . }}"
+fi
+{{ end -}}
+
 echo "[-] Package installation completed [-]"
 
 {{ end -}}
