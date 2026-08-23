@@ -79,6 +79,7 @@ packages:
   linux:
     brews:
       - talosctl
+      - mistral-vibe
     flatpak:
       - org.gnome.Firmware
       - com.github.tchx84.Flatseal
@@ -125,8 +126,8 @@ packages:
       - com.github.maoschanz.drawing
       - io.gitlab.adhami3310.Converter
 extensions:
-  common:
-    vscode:
+  vscode:
+    common:
       - ms-azuretools.vscode-containers
       - ms-vscode-remote.remote-containers
       - ms-vscode-remote.remote-ssh
@@ -136,8 +137,7 @@ extensions:
       - github.vscode-pull-request-github
       - catppuccin.catppuccin-vsc
       - catppuccin.catppuccin-vsc-icons
-  darwin:
-    vscode:
+    darwin:
       - codezombiech.gitignore
       - anthropic.claude-code
       - hashicorp.terraform
@@ -149,3 +149,5 @@ extensions:
       - mechatroner.rainbow-csv
       - matheysq94.tfs
       - opentofu.vscode-opentofu
+    linux:
+      - mistralai.mistral-vibe-code
