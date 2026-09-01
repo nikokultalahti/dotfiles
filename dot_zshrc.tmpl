@@ -57,9 +57,6 @@ export NVM_DIR="$HOME/.nvm"
   [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
   [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
-# Set Google Cloud project for gemini-cli
-export GOOGLE_CLOUD_PROJECT="gapps-niko-sandbox"
-
 # Fixes Ghostty backspace bug over gcloud compute ssh & IAP tunnels
 gcloud() {
     # Detects if 'compute ssh' is invoked anywhere in the command arguments
