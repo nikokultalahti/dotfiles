@@ -125,6 +125,8 @@ packages:
       - app.fotema.Fotema
       - com.github.maoschanz.drawing
       - io.gitlab.adhami3310.Converter
+      - io.github.qwersyk.Newelle
+      - page.codeberg.censor.Censor
 extensions:
   vscode:
     common:
