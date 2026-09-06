@@ -1,6 +1,8 @@
-# Bluefin Post Install 
+# Bluefin Post Install Steps
 
-## Set the system
+## Check the system
+
+Confirm the systemConfigure to date.
 
 Update system
 ```bash
@@ -18,15 +20,14 @@ Or use the Firmware app.
 
 Reboot.
 
-Enable dev mode
+Enable dev mode if not enabled yet.
 ```bash
 ujust devmode
 ```
-Optionally, install recommended CLI tools and development Flatpaks.
 
 Reboot.
 
-Enable dev mode
+Add yourself to newly created groups
 ```bash
 ujust dx-group
 ```
@@ -41,17 +42,17 @@ systemctl --user start podman.socket
 
 ## Apps and configurations
 
-Run the bootstap script:
+Run the bootstap script it not ran yet:
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/nikokultalahti/dotfiles/main/bootstrap.sh)"
 ```
 
 ## Settings
 
-Set up fingerprints.
-Set up Online Accounts.
-Set up Firefox.
-Set up apps.
+Configure fingerprint setup for user.
+Configure Nextcloud in Online Accounts.
+Configure Firefox.
+Configure flatpak apps.
 
 Copy public SSH keys from Bitwarden to `~/.ssh`
 
@@ -59,6 +60,7 @@ Configure NextDNS:
     - Create a file in  `/etc/systemd/resolved.conf.d/`and set according to instructions in NextDNS Account Dashboard
     - Run `sudo systemctl reload systemd-resolved`
 
-
+Configure VPN:
+    - Copy Wireguard VPN configuration files from router and VPN provider, and import into Network Maanger
 
 

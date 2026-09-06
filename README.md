@@ -1,11 +1,11 @@
 # Dotfiles
 
-Managed with [chezmoi](https://www.chezmoi.io/).
+My personal dotfiles, managed with [chezmoi](https://www.chezmoi.io/).
 
 ## Features
 
-- **Cross-platform**: Supports macOS and Linux (including Fedora Silverblue).
-- **Conditional Configuration**: Dynamically configures files based on OS and machine type (work/personal).
+- **Cross-platform**: Supports macOS and Linux (Fedora Silverblue / Bluefin).
+- **Conditional Configuration**: Dynamically configures files based on OS (Linux, MacOS) and machine type (work/personal),.
 - **Templating**: Uses chezmoi's templating system for dynamic values.
 - **Secrets Management**: Integrates with Bitwarden for secure secrets management.
 - **Bootstrap Script**: Automates the setup process with a single command.
@@ -60,9 +60,9 @@ If you prefer to set up manually:
 - **Add new files**: Use `chezmoi add <file>` to add a new file to the dotfiles repository.
 - **Edit templates**: Modify files in `~/.local/share/chezmoi/` and run `chezmoi apply` to update the managed files.
 
-## TODO
-- Opencode Config
-- Script for macOS settings
-- Fedora Silverblue / GNOME settings
-- NextDNS Config copy to `/etc/systemd/resolved.conf.d/`, encrypt with age
-- MacOS Config is not working with Zed installed as Flatpak; create Linux config and add tochezmoi
+## Additional setup
+
+There are several smaller tasks that are expected to be performed after a fresh install and it does not make sense to have those in here.
+
+The steps to follow for a fresh OS install can be found at:
+- [Bluefin Post Install Steps](bluefin-post-install.md)
