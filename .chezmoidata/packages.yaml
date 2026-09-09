@@ -22,7 +22,6 @@ packages:
       - timrogers/tap/litra-autotoggle
       - mise
       - pre-commit
-      - podman-tui
       - ripgrep
       - shellcheck
       - starship
