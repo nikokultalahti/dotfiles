@@ -9,7 +9,6 @@ packages:
       - block-goose-cli
       - carapace
       - chezmoi
-      - devcontainer
       - direnv
       - eza
       - fabric-ai
