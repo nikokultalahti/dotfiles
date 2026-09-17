@@ -1,0 +1,172 @@
+[mise.tools.common]
+  tools = [
+    "aqua:FiloSottile/age",
+    "aqua:atuinsh/atuin",
+    "aqua:sharkdp/bat",
+    "aqua:carapace-sh/carapace-bin",
+    "aqua:eza-community/eza",
+    "aqua:sharkdp/fd",
+    "aqua:junegunn/fzf",
+    # Github CLI
+    "aqua:cli/cli",
+    "aqua:helix-editor/helix",
+    "aqua:jqlang/jq",
+    "aqua:pre-commit/pre-commit",
+    "aqua:BurntSushi/ripgrep",
+    "aqua:koalaman/shellcheck",
+    "aqua:starship/starship",
+    "aqua:tealdeer-rs/tealdeer",
+    "aqua:alexpasmantier/television",
+    "aqua:getsops/sops",
+    "aqua:mikefarah/yq",
+    "aqua:ajeetdsouza/zoxide",
+    "github:timrogers/litra-rs",
+    "github:timrogers/litra-autotoggle",
+  ]
+
+[mise.tools.personal]
+  tools = [
+    "github:yt-dlp/yt-dlp",
+    "github:aaif-goose/goose",
+    # fabric-ai
+    "github:danielmiessler/fabric",
+    "aqua:siderolabs/talos",
+  ]
+
+[mise.tools.work]
+  tools = [
+    "aqua:google-antigravity/antigravity-cli",
+    "aqua:bitwarden/clients",
+    "aqua:anthropics/claude-code",
+    "aqua:controlplaneio-fluxcd/flux-operator",
+    "aqua:controlplaneio-fluxcd/flux-operator/flux-operator-mcp",
+    "brew:hermes-agent",
+    "aqua:derailed/k9s",
+    "aqua:kubernetes/kubernetes/kubectl",
+    "aqua:ahmetb/kubectx",
+    "aqua:yannh/kubeconform",
+    "aqua:kubernetes-sigs/kustomize",
+    "core:node",
+    "aqua:opentofu/opentofu",
+    "brew:podman",
+    "brew:podman-compose",
+    "aqua:tmux/tmux-builds",
+    "core:python",
+    "aqua:GoogleCloudPlatform/terraformer",
+    "aqua:gruntwork-io/terragrunt",
+    "aqua:tfutils/tfenv",
+    "aqua:terraform-linters/tflint",
+  ]
+
+[mise.tools.darwin]
+  tools = [
+    "brew:zsh-autosuggestions",
+    "brew:zsh-syntax-highlighting",
+  ]
+
+[mise.packages.personal]
+  array = [
+    "flatpak:org.gtk.Gtk3theme.adw-gtk3",
+    "flatpak:org.gtk.Gtk3theme.adw-gtk3-dark",
+    "flatpak:org.gnome.Firmware",
+    "flatpak:com.github.tchx84.Flatseal",
+    "flatpak:io.github.flattool.Warehouse",
+    "flatpak:com.mattjakeman.ExtensionManager",
+    "flatpak:io.github.flattool.Ignition",
+    "flatpak:io.gitlab.adhami3310.Impression",
+    "flatpak:org.gnome.World.PikaBackup",
+    "flatpak:page.tesk.Refine",
+    "flatpak:io.github.getnf.embellish",
+    "flatpak:com.bitwarden.desktop",
+    "flatpak:com.github.marhkb.Pods",
+    "flatpak:org.gnome.Boxes",
+    "flatpak:com.ranfdev.DistroShelf",
+    "flatpak:org.mozilla.firefox",
+    "flatpak:org.mozilla.thunderbird_esr",
+    "flatpak:org.libreoffice.LibreOffice",
+    "flatpak:dev.qwery.AddWater",
+    "flatpak:io.github.qwersyk.Newelle",
+    "flatpak:app.drey.Dialect",
+    "flatpak:be.alexandervanhee.gradia",
+    "flatpak:cafe.avery.Delfin",
+    "flatpak:com.github.PintaProject.Pinta",
+    "flatpak:com.github.jeromerobert.pdfarranger",
+    "flatpak:com.nextcloud.desktopclient.nextcloud",
+    "flatpak:com.yubico.yubioath",
+    "flatpak:de.haeckerfelix.Fragments",
+    "flatpak:de.schmidhuberj.tubefeeder", # Pipeline
+    "flatpak:org.nickvision.tubeconverter", # Parabolic
+    "flatpak:dev.geopjr.Tuba",
+    "flatpak:io.github.alainm23.planify",
+    "flatpak:md.obsidian.Obsidian",
+    "flatpak:org.gnome.World.Iotas",
+    "flatpak:org.gnome.gitlab.cheywood.Pulp",
+    "flatpak:org.gnome.gitlab.somas.Apostrophe",
+    "flatpak:org.signal.Signal",
+    "flatpak:re.sonny.Eloquent",
+    "flatpak:app.fotema.Fotema",
+    "flatpak:com.github.maoschanz.drawing",
+    "flatpak:io.gitlab.adhami3310.Converter",
+    "flatpak:page.codeberg.censor.Censor",
+    "flatpak:dev.zed.Zed",
+    "flatpak:re.sonny.Commit",
+    "flatpak:me.iepure.devtoolbox",
+    "flatpak:com.mardojai.ForgeSparks",
+    "flatpak:de.wwwtech.gitte",
+  ]
+
+[mise.packages.work]
+  packages = [
+    "brew-cask:aerospace",
+    "brew-cask:antigravity",
+    "brew-cask:bitwarden",
+    "brew-cask:claude-code",
+    "brew-cask:firefox",
+    "brew-cask:gcloud-cli",
+    "brew-cask:ghostty",
+    "brew-cask:google-chrome",
+    "brew-cask:hermes-desktop",
+    "brew-cask:obsidian",
+    "brew-cask:podman-desktop",
+    "brew-cask:raycast",
+    "brew-cask:shortcat",
+    "brew-cask:slack",
+    "brew-cask:spotify",
+    "brew-cask:visual-studio-code",
+    "brew-cask:yubico-authenticator",
+    "brew-cask:zed",
+    "brew-cask:font-jetbrains-mono-nerd-font",
+  ]
+
+[extensions.vscode.common]
+  extensions = [
+    "ms-azuretools.vscode-containers",
+    "ms-vscode-remote.remote-containers",
+    "ms-vscode-remote.remote-ssh",
+    "ms-vscode-remote.remote-ssh-edit",
+    "ms-vscode.remote-explorer",
+    "mhutchie.git-graph",
+    "github.vscode-pull-request-github",
+    "catppuccin.catppuccin-vsc",
+    "catppuccin.catppuccin-vsc-icons",
+  ]
+
+[extensions.vscode.personal]
+  extensions = [
+    "mistralai.mistral-vibe-code",
+  ]
+
+[extensions.vscode.work]
+  extensions = [
+    "codezombiech.gitignore",
+    "anthropic.claude-code",
+    "hashicorp.terraform",
+    "hashicorp.hcl",
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.debugpy",
+    "ms-python.vscode-python-envs",
+    "mechatroner.rainbow-csv",
+    "matheysq94.tfs",
+    "opentofu.vscode-opentofu",
+  ]
