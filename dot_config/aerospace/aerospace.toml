@@ -137,15 +137,15 @@ run = 'layout floating'
     cmd-alt-comma = 'layout accordion horizontal vertical'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-    cmd-alt-h = 'focus left'
-    cmd-alt-j = 'focus down'
-    cmd-alt-k = 'focus up'
+    cmd-alt-j = 'focus left'
+    cmd-alt-k = 'focus down'
+    cmd-alt-i = 'focus up'
     cmd-alt-l = 'focus right'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move
-    cmd-alt-shift-h = 'move left'
-    cmd-alt-shift-j = 'move down'
-    cmd-alt-shift-k = 'move up'
+    cmd-alt-shift-j = 'move left'
+    cmd-alt-shift-k = 'move down'
+    cmd-alt-shift-i = 'move up'
     cmd-alt-shift-l = 'move right'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#resize
@@ -158,6 +158,7 @@ run = 'layout floating'
     cmd-alt-3 = 'workspace 3'
     cmd-alt-4 = 'workspace 4'
     cmd-alt-5 = 'workspace 5'
+    cmd-alt-6 = 'workspace 6'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
     cmd-alt-shift-1 = 'move-node-to-workspace 1'
@@ -165,6 +166,8 @@ run = 'layout floating'
     cmd-alt-shift-3 = 'move-node-to-workspace 3'
     cmd-alt-shift-4 = 'move-node-to-workspace 4'
     cmd-alt-shift-5 = 'move-node-to-workspace 5'
+    cmd-alt-shift-6 = 'move-node-to-workspace 6'
+
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     cmd-alt-tab = 'workspace-back-and-forth'
