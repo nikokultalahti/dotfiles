@@ -5,8 +5,6 @@ packages:
     brews:
       - atuin
       - bat
-      - bbrew
-      - block-goose-cli
       - carapace
       - chezmoi
       - direnv
@@ -19,7 +17,6 @@ packages:
       - kubernetes-cli
       - litra
       - timrogers/tap/litra-autotoggle
-      - mise
       - pre-commit
       - ripgrep
       - shellcheck
@@ -57,7 +54,6 @@ packages:
       - tflint
     casks:
       - aerospace
-      - block-goose
       - claude-code
       - firefox
       - gcloud-cli
@@ -76,6 +72,7 @@ packages:
       - font-jetbrains-mono-nerd-font
   linux:
     brews:
+      - block-goose-cli
       - talosctl
       - mistral-vibe
     flatpak:
