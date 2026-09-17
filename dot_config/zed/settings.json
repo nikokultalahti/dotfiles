@@ -1,0 +1,107 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "language_models": {
+    "opencode": {
+      "show_zen_models": false,
+      "show_go_models": false,
+      "show_free_models": false
+    }
+  },
+  "collaboration_panel": {
+    "button": false
+  },
+  "project_panel": {
+    "dock": "left"
+  },
+  "agent_servers": {
+    "antigravity-acp": {
+      "type": "registry",
+      "settings": {
+        "auth": {
+          "type": "agent-platform"
+        },
+        "gcp": {
+          "project": "gapps-vertex-ai",
+          "location": "global"
+        }
+      }
+    },
+    "opencode": {
+      "type": "registry"
+    },
+    "claude-acp": {
+      "default_config_options": {
+        "mode": "plan"
+      },
+      "type": "registry"
+    }
+  },
+  "edit_predictions": {
+    "open_ai_compatible_api": {
+      "model": ""
+    },
+    "provider": "zed"
+  },
+  "text_rendering_mode": "platform_default",
+  "buffer_font_size": 14.0,
+  "buffer_font_weight": 400.0,
+  "git_panel": {
+    "tree_view": true,
+    "dock": "left",
+  },
+  "ui_font_family": "JetBrainsMono Nerd Font",
+  "buffer_font_family": "JetBrainsMono Nerd Font",
+  "context_servers": {},
+  "agent": {
+    "sidebar_side": "right",
+    "dock": "right",
+    "default_profile": "ask",
+    "default_model": {
+      "effort": "medium",
+      "enable_thinking": true,
+      "provider": "google",
+      "model": "gemini-3.5-flash",
+    },
+    "model_parameters": [],
+  },
+  "git": {
+    "inline_blame": {
+      "show_commit_summary": false,
+    },
+  },
+  "outline_panel": {
+    "dock": "left",
+  },
+  "buffer_line_height": "comfortable",
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+  },
+  "icon_theme": "Catppuccin Mocha",
+  "ui_font_size": 16.0,
+  "theme": "Catppuccin Mocha",
+  "terminal": {
+    "detect_venv": {
+      "on": {
+        "directories": [".env", "env", ".venv", "venv"],
+        "activate_script": "default",
+      },
+    },
+  },
+  "lsp": {
+    "terraform-ls": {
+      "initialization_options": {
+        "experimentalFeatures": {
+          "prefillRequiredFields": true,
+        },
+      },
+    },
+  },
+}
