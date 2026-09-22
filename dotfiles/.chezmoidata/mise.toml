@@ -1,6 +1,5 @@
 [mise.tools.common]
   tools = [
-    "aqua:FiloSottile/age",
     "aqua:atuinsh/atuin",
     "aqua:sharkdp/bat",
     "aqua:carapace-sh/carapace-bin",
@@ -17,7 +16,6 @@
     "aqua:starship/starship",
     "aqua:tealdeer-rs/tealdeer",
     "aqua:alexpasmantier/television",
-    "aqua:getsops/sops",
     "aqua:mikefarah/yq",
     "aqua:ajeetdsouza/zoxide",
     "github:timrogers/litra-rs",
@@ -28,8 +26,8 @@
   tools = [
     "github:yt-dlp/yt-dlp",
     "github:aaif-goose/goose",
-    # fabric-ai
     "github:danielmiessler/fabric",
+    "aqua:earendil-works/pi"
     "aqua:siderolabs/talos",
   ]
 
@@ -38,8 +36,12 @@
     "aqua:google-antigravity/antigravity-cli",
     "aqua:bitwarden/clients",
     "aqua:anthropics/claude-code",
+    "dashlane/tap/dashlane-cli",
+    "aqua:fluxcd/flux2"
     "aqua:controlplaneio-fluxcd/flux-operator",
     "aqua:controlplaneio-fluxcd/flux-operator/flux-operator-mcp",
+    "gitlab:gitlab-org/cli"
+    "brew:googleworkspace-cli",
     "brew:hermes-agent",
     "aqua:derailed/k9s",
     "aqua:kubernetes/kubernetes/kubectl",
@@ -48,8 +50,8 @@
     "aqua:kubernetes-sigs/kustomize",
     "core:node",
     "aqua:opentofu/opentofu",
-    "brew:podman",
-    "brew:podman-compose",
+    "github:podman-container-tools/podman
+    "aqua:getsops/sops"
     "aqua:tmux/tmux-builds",
     "core:python",
     "aqua:GoogleCloudPlatform/terraformer",
@@ -113,6 +115,7 @@
     "flatpak:me.iepure.devtoolbox",
     "flatpak:com.mardojai.ForgeSparks",
     "flatpak:de.wwwtech.gitte",
+    "flatpak:org.chromium.Chromium"
   ]
 
 [mise.packages.work]
@@ -158,7 +161,6 @@
 
 [extensions.vscode.work]
   extensions = [
-    "codezombiech.gitignore",
     "anthropic.claude-code",
     "hashicorp.terraform",
     "hashicorp.hcl",
