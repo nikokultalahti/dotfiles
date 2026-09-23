@@ -46,8 +46,7 @@ if highlighting_prefix="$(mise bootstrap packages where brew:zsh-syntax-highligh
 fi
 unset suggestions_prefix highlighting_prefix
 {{ else }}
-# Installed via rpm-ostree host layering (see docs/silverblue-install-guidef.md),
-# not mise/Homebrew.
+# Installed via rpm-ostree layering, not mise/Homebrew.
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null || true
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null || true
 {{ end }}
