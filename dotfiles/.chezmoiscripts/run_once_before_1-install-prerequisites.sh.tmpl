@@ -6,13 +6,13 @@ set -eu
 install_mise() {
     command -v mise >/dev/null 2>&1 && return 0
     curl -fsSL https://mise.run | sh
+    export PATH="$HOME/.local/bin:$PATH"
+    CURRENT_SHELL="$(basename "${SHELL:-bash}")"
+    eval "$("$HOME/.local/bin/mise" activate "$CURRENT_SHELL" 2>/dev/null || "$HOME/.local/bin/mise" activate bash)"
 }
 
 install_bitwarden_cli() {
     command -v bw >/dev/null 2>&1 || "$HOME/.local/bin/mise" use -g bitwarden
-    # `unlock = "auto"` in .chezmoi.toml.tmpl only handles unlocking; login is
-    # separate and can't be automated (master password + 2FA), so this is a
-    # one-time interactive step on a brand-new machine.
     if ! bw login --check >/dev/null 2>&1; then
         bw config server https://vault.bitwarden.eu
         bw login --apikey
