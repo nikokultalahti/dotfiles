@@ -5,54 +5,29 @@ My personal dotfiles, managed with [chezmoi](https://www.chezmoi.io/).
 ## Features
 
 - **Cross-platform**: Supports macOS and Linux (Fedora Silverblue / Bluefin).
-- **Conditional Configuration**: Dynamically configures files based on OS (Linux, MacOS) and machine type (work/personal),.
+- **Conditional Configuration**: Dynamically configures files based on OS (Linux, MacOS) and whether this is a work machine.
 - **Templating**: Uses chezmoi's templating system for dynamic values.
-- **Secrets Management**: Integrates with Bitwarden for secure secrets management.
-- **Bootstrap Script**: Automates the setup process with a single command.
+- **Secrets Management**: Integrates with Bitwarden (and, on work machines, Dashlane) for secure secrets management.
+- **Tool/App Management**: All tools and apps (including brew/cask packages) are installed via [mise](https://mise.jdx.dev/), itself installed automatically on first apply — no separate bootstrap script.
 
 ## Quick Start
 
 To set up your dotfiles on a new machine, run:
 
 ```bash
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/nikokultalahti/dotfiles/main/bootstrap.sh)"
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply nikokultalahti
 ```
 
-The bootstrap script will:
-1. Request sudo access for Homebrew installation.
-2. Install Homebrew (if not already installed).
-3. Install chezmoi and bitwarden-cli.
-4. Unlock your Bitwarden vault.
-5. Initialize and apply the dotfiles.
+This single command installs chezmoi, then applies the dotfiles, which in turn:
+1. Installs mise, then the Bitwarden CLI (and, on work machines, the Dashlane CLI) —
+   see [`run_once_before_1-install-prerequisites.sh.tmpl`](dotfiles/.chezmoiscripts/run_once_before_1-install-prerequisites.sh.tmpl).
+2. Prompts for whether this is a work machine, and your git email if so.
+3. Applies all dotfiles and templates.
+4. Installs every remaining tool/app via mise.
 
 ## Requirements
 
-- **sudo access**: Required for Homebrew installation.
-- **Bitwarden CLI**: Must be logged in (`bw login`) if not already configured.
-
-## Manual Setup
-
-If you prefer to set up manually:
-
-1. Install Homebrew:
-   ```bash
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   ```
-
-2. Install chezmoi and bitwarden-cli:
-   ```bash
-   brew install chezmoi bitwarden-cli
-   ```
-
-3. Initialize dotfiles:
-   ```bash
-   chezmoi init https://github.com/nikokultalahti/dotfiles.git
-   ```
-
-4. Apply dotfiles:
-   ```bash
-   chezmoi apply
-   ```
+- **Bitwarden account**: Must be able to log in (`bw login`) the first time secrets are needed.
 
 ## Usage
 
