@@ -5,19 +5,16 @@
    https://www.chezmoi.io/docs/how-to/#re-create-your-config-file
 */ -}}
 
-{{- $machine_type := promptStringOnce . "machine_type" "Machine type (personal|work)" -}}
+{{- $work := promptBoolOnce . "work" "Is this a work machine (y/n)" -}}
 
-{{- $email := "" -}}
-{{- if eq $machine_type "work"}}
-    {{- $email := promptStringOnce . "email" "Git email address for the author/committer" -}}
-{{- else -}}
-{{- $email = "hello@nikokultalahti.com" -}}
+{{- $email := "hello@nikokultalahti.com" -}}
+{{- if $work -}}
+    {{- $email = promptStringOnce . "email" "Git email address for the author/committer" -}}
 {{- end -}}
 
 [bitwarden]
     unlock = "auto"
 
 [data]
-    machine_type = {{ $machine_type | quote }}
+    work = {{ $work }}
     email = {{ $email | quote }}
-    is_work_machine = {{ eq $machine_type "work" }}
