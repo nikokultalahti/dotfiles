@@ -17,6 +17,9 @@ eval "$(mise activate bash)"
 # Set Bitwarden SSH agent for dev containers
 export SSH_AUTH_SOCK="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
 
+# mise: GitHub token (avoids API rate limiting for aqua/github tool backends)
+[ -f "$HOME/.config/mise/env" ] && . "$HOME/.config/mise/env"
+
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 

@@ -20,6 +20,9 @@ export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 # Activate mise (installs/manages all tools and apps)
 eval "$(mise activate zsh)"
 
+# mise: GitHub token (avoids API rate limiting for aqua/github tool backends)
+[ -f "$HOME/.config/mise/env" ] && . "$HOME/.config/mise/env"
+
 # Set SSH AUTH SOCK for Bitwarden
 {{ if eq .chezmoi.os "darwin" }}
 export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"

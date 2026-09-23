@@ -8,6 +8,9 @@
 
 set -e
 
+# Load MISE_GITHUB_TOKEN if present (see dot_config/mise/private_env.tmpl)
+[ -f "$HOME/.config/mise/env" ] && . "$HOME/.config/mise/env"
+
 echo "[-] Installing tools and apps via mise [-]"
 mise install
 mise bootstrap packages apply --yes

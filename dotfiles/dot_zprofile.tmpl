@@ -20,4 +20,7 @@ export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
 # itself, but still lay them out under the standard Homebrew prefix.
 export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 {{ end }}
+
+# mise: GitHub token (avoids API rate limiting for aqua/github tool backends)
+[ -f "$HOME/.config/mise/env" ] && . "$HOME/.config/mise/env"
 #
