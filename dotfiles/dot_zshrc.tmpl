@@ -11,12 +11,14 @@ compinit
 # Allow tab completion in the middle of a word
 setopt COMPLETE_IN_WORD
 
-# Add Homebrew to PATH
 {{ if eq .chezmoi.os "darwin" }}
-eval "$(/opt/homebrew/bin/brew shellenv)"
-{{ else }}
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# mise's brew/brew-cask backends install formulae/casks without Homebrew
+# itself, but still lay them out under the standard Homebrew prefix.
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 {{ end }}
+
+# Activate mise (installs/manages all tools and apps)
+eval "$(mise activate zsh)"
 
 # Set SSH AUTH SOCK for Bitwarden
 {{ if eq .chezmoi.os "darwin" }}
@@ -32,8 +34,20 @@ eval "$(zoxide init zsh)"
 eval "$(tv init zsh)"
 
 # source zsh autosuggestions and syntax highlightning
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+{{ if eq .chezmoi.os "darwin" }}
+if suggestions_prefix="$(mise bootstrap packages where brew:zsh-autosuggestions 2>/dev/null)"; then
+    source "$suggestions_prefix/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
+if highlighting_prefix="$(mise bootstrap packages where brew:zsh-syntax-highlighting 2>/dev/null)"; then
+    source "$highlighting_prefix/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
+unset suggestions_prefix highlighting_prefix
+{{ else }}
+# Installed via rpm-ostree host layering (see docs/silverblue-install-guidef.md),
+# not mise/Homebrew.
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null || true
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null || true
+{{ end }}
 
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
@@ -45,17 +59,11 @@ source <(carapace _carapace)
 
 {{ if eq .chezmoi.os "darwin" }}
 # Add gcloud git-credential.helper to PATH
-source $(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-
-# Set up pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
-
-# Load NVM
-export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+# (mise's brew-cask backend has no `where` lookup for casks yet, so this
+# assumes the standard Homebrew Caskroom layout under /opt/homebrew)
+if [ -f "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc" ]; then
+    source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+fi
 
 # Fixes Ghostty backspace bug over gcloud compute ssh & IAP tunnels
 gcloud() {
@@ -95,5 +103,4 @@ alias ~='cd ~'
 alias k='kubectl'
 alias kx='kubectx'
 
-alias fabric='fabric-ai'
 alias cm='chezmoi'
