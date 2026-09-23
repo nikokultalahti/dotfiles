@@ -1,0 +1,17 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+# Sets up the Microsoft VS Code yum repo for layering VS Code.
+# Layering itself and the required reboot stay manual.
+
+set -e
+
+sudo tee /etc/yum.repos.d/vscode.repo > /dev/null <<'VSCODE_REPO_EOF'
+[code]
+name=Visual Studio Code
+baseurl=https://packages.microsoft.com/yumrepos/vscode
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.microsoft.com/keys/microsoft.asc
+VSCODE_REPO_EOF
+sudo chmod 0644 /etc/yum.repos.d/vscode.repo
+{{ end -}}
