@@ -1,12 +1,16 @@
 # Ignore always
 README.md
-silverblue-post-install.md
-bootstrap.sh
+docs
 
 # Ignore these if we ARE NOT on MacOS
 {{ if ne .chezmoi.os "darwin" }}
 .config/aerospace/**
 Library/**
+{{ end }}
+
+# Ignore these if we ARE NOT on Linux
+{{ if ne .chezmoi.os "linux" }}
+.config/systemd/**
 {{ end }}
 
 # Ignore these if we ARE on MacOS

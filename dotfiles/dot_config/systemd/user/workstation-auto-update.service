@@ -1,0 +1,6 @@
+[Unit]
+Description=Automatic background update for Flatpaks and Mise tools
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash -c 'flatpak update -y --noninteractive && %h/.local/bin/mise upgrade --yes'
