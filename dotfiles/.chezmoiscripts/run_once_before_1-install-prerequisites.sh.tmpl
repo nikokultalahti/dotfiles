@@ -1,0 +1,35 @@
+#!/bin/sh
+# Installs mise and the password manager CLI needed by later steps.
+
+set -eu
+
+install_mise() {
+    command -v mise >/dev/null 2>&1 && return 0
+    curl -fsSL https://mise.run | sh
+}
+
+install_bitwarden_cli() {
+    command -v bw >/dev/null 2>&1 || "$HOME/.local/bin/mise" use -g bitwarden
+    # `unlock = "auto"` in .chezmoi.toml.tmpl only handles unlocking; login is
+    # separate and can't be automated (master password + 2FA), so this is a
+    # one-time interactive step on a brand-new machine.
+    if ! bw login --check >/dev/null 2>&1; then
+        bw config server https://vault.bitwarden.eu
+        bw login
+    fi
+}
+
+{{ if .work -}}
+install_dashlane_cli() {
+    command -v dcli >/dev/null 2>&1 && return 0
+    "$HOME/.local/bin/mise" bootstrap packages use -g brew:dashlane/tap/dashlane-cli
+}
+{{ end -}}
+
+install_mise
+export PATH="$HOME/.local/share/mise/shims:$PATH"
+
+install_bitwarden_cli
+{{ if .work -}}
+install_dashlane_cli
+{{ end -}}

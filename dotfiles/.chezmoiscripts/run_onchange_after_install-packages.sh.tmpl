@@ -1,0 +1,18 @@
+#!/bin/sh
+# Installs all tools and apps via mise. 
+# Re-runs whenever the underlying package/tool data changes (see the manifest
+# hash below).
+#
+# Manifest hash (do not remove, forces a re-run on data changes):
+# {{ (dict "mise" .mise | toJson) | sha256sum }}
+
+set -e
+
+# Load MISE_GITHUB_TOKEN if present (see dot_config/mise/private_env.tmpl)
+[ -f "$HOME/.config/mise/env" ] && . "$HOME/.config/mise/env"
+
+echo "[-] Installing tools and apps via mise [-]"
+mise install
+mise bootstrap packages apply --yes
+
+echo "[-] Package installation completed [-]"

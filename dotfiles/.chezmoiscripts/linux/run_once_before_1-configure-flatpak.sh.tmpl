@@ -1,0 +1,11 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+# Prioritizes Flathub over Fedora's filtered Flatpak remote, so any flatpak
+# installed later (via `mise bootstrap packages apply`) comes from Flathub by default.
+
+set -e
+
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak remote-modify --prio=10 flathub
+flatpak remote-modify --prio=1 fedora 2>/dev/null || true
+{{ end -}}

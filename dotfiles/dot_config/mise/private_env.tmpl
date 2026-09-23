@@ -1,0 +1,2 @@
+{{/* Avoids GitHub API rate limiting for mise's aqua/github tool backends. */ -}}
+export MISE_GITHUB_TOKEN={{ (bitwarden "item" "dotfiles-mise-github-token").notes | quote }}

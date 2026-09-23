@@ -1,0 +1,15 @@
+{{ if and (eq .chezmoi.os "linux") (not .work) -}}
+#!/bin/sh
+# Configures NextDNS in systemd-resolved from the Bitwarden secure note
+# "dotfiles-nextdns-conf". Re-runs whenever that note's content changes.
+set -e
+
+sudo mkdir -p /etc/systemd/resolved.conf.d
+
+sudo tee /etc/systemd/resolved.conf.d/nextdns.conf > /dev/null <<'NEXTDNS_CONF_EOF'
+{{ (bitwarden "item" "dotfiles-nextdns-conf").notes }}
+NEXTDNS_CONF_EOF
+sudo chmod 0644 /etc/systemd/resolved.conf.d/nextdns.conf
+
+sudo systemctl restart systemd-resolved
+{{ end -}}

@@ -16,6 +16,11 @@ export SSH_AUTH_SOCK="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-a
 
 {{ if eq .chezmoi.os "darwin" }}
 export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
-eval "$(/opt/homebrew/bin/brew shellenv)"
+# mise's brew/brew-cask backends install formulae/casks without Homebrew
+# itself, but still lay them out under the standard Homebrew prefix.
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
 {{ end }}
+
+# mise: GitHub token (avoids API rate limiting for aqua/github tool backends)
+[ -f "$HOME/.config/mise/env" ] && . "$HOME/.config/mise/env"
 #

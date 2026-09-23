@@ -1,0 +1,15 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+# Configures rpm-ostree to automatically download/stage updates in the
+# background, applied on next reboot.
+
+set -e
+
+sudo tee /etc/rpm-ostreed.conf > /dev/null <<'RPM_OSTREED_CONF_EOF'
+[Daemon]
+AutomaticUpdatePolicy=stage
+RPM_OSTREED_CONF_EOF
+sudo chmod 0644 /etc/rpm-ostreed.conf
+
+sudo systemctl enable --now rpm-ostreed-automatic.timer
+{{ end -}}

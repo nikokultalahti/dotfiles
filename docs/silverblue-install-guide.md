@@ -24,6 +24,18 @@ Reboot
 systemctl reboot
 ```
 
+## Initialize dotfiles and bootstrap
+
+Run:
+```bash
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply nikokultalahti
+```
+
+This also sets up the VS Code yum repo (`/etc/yum.repos.d/vscode.repo`), which
+the RPM-Ostree step below needs. VS Code extension installation will fail and
+retry on every future `chezmoi apply` until `code` is actually on PATH —
+expected until you've completed the next two steps.
+
 ## RPM-Ostree
 
 Remove and install layered packages
@@ -41,11 +53,12 @@ Reboot
 systemctl reboot
 ```
 
-## Initialize dotfiles and bootstrap
+## Finish bootstrap
 
-Run:
+Run `chezmoi apply` again — `code` now exists, so this installs the VS Code
+extensions:
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply nikokultalahti
+chezmoi apply
 ```
 
 ## Configure

@@ -1,0 +1,51 @@
+#!/bin/sh
+# Installs VS Code extensions.
+#
+# On Fedora Silverblue, `code` is layered via rpm-ostree and only becomes available after a
+# reboot. If `code` isn't on PATH yet, this exits non-zero *without* running
+# the loop below — chezmoi does not mark a failed run_onchange_ script as
+# done, so it retries on every subsequent `chezmoi apply` until `code`
+# actually exists, at which point it installs the extensions and stops
+# retrying.
+#
+# Manifest hash (do not remove, forces a re-run on data changes):
+# {{ (dict "extensions" .extensions | toJson) | sha256sum }}
+
+set -e
+
+if ! command -v code >/dev/null 2>&1; then
+    echo "[-] VS Code not installed yet, skipping extension installation [-]"
+    exit 1
+fi
+
+echo "[-] Installing VS Code extensions [-]"
+{{ range .extensions.vscode.common.extensions -}}
+if ! code --list-extensions | grep -qF {{ . | quote }}; then
+    echo "Installing extension {{ . }}..."
+    code --force --install-extension {{ . | quote }}
+else
+    echo "Extension already installed: {{ . }}"
+fi
+{{ end -}}
+
+{{ if .work -}}
+{{ range .extensions.vscode.work.extensions -}}
+if ! code --list-extensions | grep -qF {{ . | quote }}; then
+    echo "Installing extension {{ . }}..."
+    code --force --install-extension {{ . | quote }}
+else
+    echo "Extension already installed: {{ . }}"
+fi
+{{ end -}}
+{{ else -}}
+{{ range .extensions.vscode.personal.extensions -}}
+if ! code --list-extensions | grep -qF {{ . | quote }}; then
+    echo "Installing extension {{ . }}..."
+    code --force --install-extension {{ . | quote }}
+else
+    echo "Extension already installed: {{ . }}"
+fi
+{{ end -}}
+{{ end -}}
+
+echo "[-] VS Code extension installation completed [-]"

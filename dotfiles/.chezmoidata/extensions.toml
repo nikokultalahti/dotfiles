@@ -1,0 +1,31 @@
+[extensions.vscode.common]
+  extensions = [
+    "ms-azuretools.vscode-containers",
+    "ms-vscode-remote.remote-containers",
+    "ms-vscode-remote.remote-ssh",
+    "ms-vscode-remote.remote-ssh-edit",
+    "ms-vscode.remote-explorer",
+    "mhutchie.git-graph",
+    "github.vscode-pull-request-github",
+    "catppuccin.catppuccin-vsc",
+    "catppuccin.catppuccin-vsc-icons",
+  ]
+
+[extensions.vscode.personal]
+  extensions = [
+    "mistralai.mistral-vibe-code",
+  ]
+
+[extensions.vscode.work]
+  extensions = [
+    "anthropic.claude-code",
+    "hashicorp.terraform",
+    "hashicorp.hcl",
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.debugpy",
+    "ms-python.vscode-python-envs",
+    "mechatroner.rainbow-csv",
+    "matheysq94.tfs",
+    "opentofu.vscode-opentofu",
+  ]

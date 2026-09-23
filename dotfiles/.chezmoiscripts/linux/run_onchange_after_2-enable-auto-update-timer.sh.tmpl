@@ -1,0 +1,13 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+# Enables the mise/flatpak auto-update timer. Re-runs (daemon-reload +
+# re-enable) whenever the unit files' content changes.
+#
+# Manifest hash (do not remove, forces a re-run on unit file changes):
+# {{ include "dot_config/systemd/user/workstation-auto-update.service" | sha256sum }}{{ include "dot_config/systemd/user/workstation-auto-update.timer" | sha256sum }}
+
+set -e
+
+systemctl --user daemon-reload
+systemctl --user enable --now workstation-auto-update.timer
+{{ end -}}
