@@ -1,21 +1,61 @@
-# Managed by chezmoi from .chezmoidata/packages.toml ([packages.mise]).
-# Do not edit directly; edit the data file and run 'chezmoi apply'.
+{{/*
+   Single mise config file for this machine, rendered by chezmoi from
+   .chezmoidata/mise.toml. mise is used exclusively for installing tools and
+   apps (`[tools]` + `[bootstrap.packages]`); everything else (dotfiles,
+   secrets, privileged files, services) stays in chezmoi.
+
+   Tools are scoped by role only (common/personal/work) — aqua/github/core
+   backends work identically on any OS. Packages are scoped by OS first (the
+   brew/brew-cask/flatpak backend is inherently OS-specific), then by role.
+
+   Re-run `chezmoi apply` after editing .chezmoidata/mise.toml, then:
+     mise install && mise bootstrap packages apply --yes
+*/ -}}
+
+# Managed by chezmoi from dot_config/mise/config.toml.tmpl. Do not edit directly.
 
 [tools]
-{{ range .mise.tools.common -}}
+{{- range .mise.tools.common.tools }}
+"{{ . }}" = "latest"
+{{- end }}
+{{- if .work }}
+{{- range .mise.tools.work.tools }}
+"{{ . }}" = "latest"
+{{- end }}
+{{- else }}
+{{- range .mise.tools.personal.tools }}
+"{{ . }}" = "latest"
+{{- end }}
+{{- end }}
 
-{{- if eq $machine_type "personal"}}
-{{ range .mise.tools.personal -}}
-
-{{- if eq $machine_type "work"}}
-{{ range .mise.tools.work -}}
-
-{{ if eq .chezmoi.os "darwin" -}}
-{{ range .mise.tools.darwin -}}
-
-[packages]
-{{ if and (eq .chezmoi.os "linux") (eq $machine_type "personal") -}}
-{{ range .mise.packages.personal -}}
-
-{{ if and (eq .chezmoi.os "darwin") (eq $machine_type "work") -}}
-{{ range .mise.packages.work -}}
+[bootstrap.packages]
+{{- if eq .chezmoi.os "darwin" }}
+{{- range .mise.packages.darwin.common.brews }}
+"brew:{{ . }}" = "latest"
+{{- end }}
+{{- range .mise.packages.darwin.common.casks }}
+"brew-cask:{{ . }}" = "latest"
+{{- end }}
+{{- if .work }}
+{{- range .mise.packages.darwin.work.brews }}
+"brew:{{ . }}" = "latest"
+{{- end }}
+{{- range .mise.packages.darwin.work.casks }}
+"brew-cask:{{ . }}" = "latest"
+{{- end }}
+{{- end }}
+{{- end }}
+{{- if eq .chezmoi.os "linux" }}
+{{- range .mise.packages.linux.common.flatpaks }}
+"flatpak:{{ . }}" = "latest"
+{{- end }}
+{{- if .work }}
+{{- range .mise.packages.linux.work.flatpaks }}
+"flatpak:{{ . }}" = "latest"
+{{- end }}
+{{- else }}
+{{- range .mise.packages.linux.personal.flatpaks }}
+"flatpak:{{ . }}" = "latest"
+{{- end }}
+{{- end }}
+{{- end }}

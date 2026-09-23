@@ -1,7 +1,10 @@
+# Tools: aqua/github/core mise tool refs, installed via `mise install`.
+# Scoped by role only — these backends work identically on any OS.
 [mise.tools.common]
   tools = [
     "aqua:atuinsh/atuin",
     "aqua:sharkdp/bat",
+    "aqua:bitwarden/clients",
     "aqua:carapace-sh/carapace-bin",
     "aqua:eza-community/eza",
     "aqua:sharkdp/fd",
@@ -27,22 +30,18 @@
     "github:yt-dlp/yt-dlp",
     "github:aaif-goose/goose",
     "github:danielmiessler/fabric",
-    "aqua:earendil-works/pi"
+    "aqua:earendil-works/pi",
     "aqua:siderolabs/talos",
   ]
 
 [mise.tools.work]
   tools = [
     "aqua:google-antigravity/antigravity-cli",
-    "aqua:bitwarden/clients",
     "aqua:anthropics/claude-code",
-    "dashlane/tap/dashlane-cli",
-    "aqua:fluxcd/flux2"
+    "aqua:fluxcd/flux2",
     "aqua:controlplaneio-fluxcd/flux-operator",
     "aqua:controlplaneio-fluxcd/flux-operator/flux-operator-mcp",
-    "gitlab:gitlab-org/cli"
-    "brew:googleworkspace-cli",
-    "brew:hermes-agent",
+    "gitlab:gitlab-org/cli",
     "aqua:derailed/k9s",
     "aqua:kubernetes/kubernetes/kubectl",
     "aqua:ahmetb/kubectx",
@@ -50,8 +49,8 @@
     "aqua:kubernetes-sigs/kustomize",
     "core:node",
     "aqua:opentofu/opentofu",
-    "github:podman-container-tools/podman
-    "aqua:getsops/sops"
+    "github:podman-container-tools/podman",
+    "aqua:getsops/sops",
     "aqua:tmux/tmux-builds",
     "core:python",
     "aqua:GoogleCloudPlatform/terraformer",
@@ -60,83 +59,103 @@
     "aqua:terraform-linters/tflint",
   ]
 
-[mise.tools.darwin]
-  tools = [
-    "brew:zsh-autosuggestions",
-    "brew:zsh-syntax-highlighting",
+# Packages: brew/brew-cask/flatpak app+formula names, installed via
+# `mise bootstrap packages apply`. Scoped by OS first (the backend itself is
+# OS-specific), then by role — work is NOT assumed to always be darwin; personal is assumed being Linux.
+[mise.packages.darwin.common]
+  # Not a role concern: Linux gets these via rpm-ostree host layering instead.
+  brews = [
+    "zsh-autosuggestions",
+    "zsh-syntax-highlighting",
+  ]
+  casks = []
+
+[mise.packages.darwin.work]
+  brews = [
+    "googleworkspace-cli",
+    "hermes-agent",
+    "dashlane/tap/dashlane-cli",
+  ]
+  casks = [
+    "aerospace",
+    "antigravity",
+    "bitwarden",
+    "claude-code",
+    "firefox",
+    "gcloud-cli",
+    "ghostty",
+    "google-chrome",
+    "hermes-desktop",
+    "obsidian",
+    "podman-desktop",
+    "raycast",
+    "shortcat",
+    "slack",
+    "spotify",
+    "visual-studio-code",
+    "yubico-authenticator",
+    "zed",
+    "font-jetbrains-mono-nerd-font",
   ]
 
-[mise.packages.personal]
-  array = [
-    "flatpak:org.gtk.Gtk3theme.adw-gtk3",
-    "flatpak:org.gtk.Gtk3theme.adw-gtk3-dark",
-    "flatpak:org.gnome.Firmware",
-    "flatpak:com.github.tchx84.Flatseal",
-    "flatpak:io.github.flattool.Warehouse",
-    "flatpak:com.mattjakeman.ExtensionManager",
-    "flatpak:io.github.flattool.Ignition",
-    "flatpak:io.gitlab.adhami3310.Impression",
-    "flatpak:org.gnome.World.PikaBackup",
-    "flatpak:page.tesk.Refine",
-    "flatpak:io.github.getnf.embellish",
-    "flatpak:com.bitwarden.desktop",
-    "flatpak:com.github.marhkb.Pods",
-    "flatpak:org.gnome.Boxes",
-    "flatpak:com.ranfdev.DistroShelf",
-    "flatpak:org.mozilla.firefox",
-    "flatpak:org.mozilla.thunderbird_esr",
-    "flatpak:org.libreoffice.LibreOffice",
-    "flatpak:dev.qwery.AddWater",
-    "flatpak:io.github.qwersyk.Newelle",
-    "flatpak:app.drey.Dialect",
-    "flatpak:be.alexandervanhee.gradia",
-    "flatpak:cafe.avery.Delfin",
-    "flatpak:com.github.PintaProject.Pinta",
-    "flatpak:com.github.jeromerobert.pdfarranger",
-    "flatpak:com.nextcloud.desktopclient.nextcloud",
-    "flatpak:com.yubico.yubioath",
-    "flatpak:de.haeckerfelix.Fragments",
-    "flatpak:de.schmidhuberj.tubefeeder", # Pipeline
-    "flatpak:org.nickvision.tubeconverter", # Parabolic
-    "flatpak:dev.geopjr.Tuba",
-    "flatpak:io.github.alainm23.planify",
-    "flatpak:md.obsidian.Obsidian",
-    "flatpak:org.gnome.World.Iotas",
-    "flatpak:org.gnome.gitlab.cheywood.Pulp",
-    "flatpak:org.gnome.gitlab.somas.Apostrophe",
-    "flatpak:org.signal.Signal",
-    "flatpak:re.sonny.Eloquent",
-    "flatpak:app.fotema.Fotema",
-    "flatpak:com.github.maoschanz.drawing",
-    "flatpak:io.gitlab.adhami3310.Converter",
-    "flatpak:page.codeberg.censor.Censor",
-    "flatpak:dev.zed.Zed",
-    "flatpak:re.sonny.Commit",
-    "flatpak:me.iepure.devtoolbox",
-    "flatpak:com.mardojai.ForgeSparks",
-    "flatpak:de.wwwtech.gitte",
-    "flatpak:org.chromium.Chromium"
+[mise.packages.linux.common]
+  # Empty today (as work is macOS, there is no common Linux packages between roles); 
+  # populate if work moves to Linux — no template or structural changes needed, just data here.
+  flatpaks = []
+
+[mise.packages.linux.personal]
+  flatpaks = [
+    "org.gtk.Gtk3theme.adw-gtk3",
+    "org.gtk.Gtk3theme.adw-gtk3-dark",
+    "org.gnome.Firmware",
+    "com.github.tchx84.Flatseal",
+    "io.github.flattool.Warehouse",
+    "com.mattjakeman.ExtensionManager",
+    "io.github.flattool.Ignition",
+    "io.gitlab.adhami3310.Impression",
+    "org.gnome.World.PikaBackup",
+    "page.tesk.Refine",
+    "io.github.getnf.embellish",
+    "com.bitwarden.desktop",
+    "com.github.marhkb.Pods",
+    "org.gnome.Boxes",
+    "com.ranfdev.DistroShelf",
+    "org.mozilla.firefox",
+    "org.mozilla.thunderbird_esr",
+    "org.libreoffice.LibreOffice",
+    "dev.qwery.AddWater",
+    "io.github.qwersyk.Newelle",
+    "app.drey.Dialect",
+    "be.alexandervanhee.gradia",
+    "cafe.avery.Delfin",
+    "com.github.PintaProject.Pinta",
+    "com.github.jeromerobert.pdfarranger",
+    "com.nextcloud.desktopclient.nextcloud",
+    "com.yubico.yubioath",
+    "de.haeckerfelix.Fragments",
+    "de.schmidhuberj.tubefeeder", # Pipeline
+    "org.nickvision.tubeconverter", # Parabolic
+    "dev.geopjr.Tuba",
+    "io.github.alainm23.planify",
+    "md.obsidian.Obsidian",
+    "org.gnome.World.Iotas",
+    "org.gnome.gitlab.cheywood.Pulp",
+    "org.gnome.gitlab.somas.Apostrophe",
+    "org.signal.Signal",
+    "re.sonny.Eloquent",
+    "app.fotema.Fotema",
+    "com.github.maoschanz.drawing",
+    "io.gitlab.adhami3310.Converter",
+    "page.codeberg.censor.Censor",
+    "dev.zed.Zed",
+    "re.sonny.Commit",
+    "me.iepure.devtoolbox",
+    "com.mardojai.ForgeSparks",
+    "de.wwwtech.gitte",
+    "org.chromium.Chromium",
   ]
 
-[mise.packages.work]
-  packages = [
-    "brew-cask:aerospace",
-    "brew-cask:antigravity",
-    "brew-cask:bitwarden",
-    "brew-cask:claude-code",
-    "brew-cask:firefox",
-    "brew-cask:gcloud-cli",
-    "brew-cask:ghostty",
-    "brew-cask:google-chrome",
-    "brew-cask:hermes-desktop",
-    "brew-cask:obsidian",
-    "brew-cask:podman-desktop",
-    "brew-cask:raycast",
-    "brew-cask:shortcat",
-    "brew-cask:slack",
-    "brew-cask:spotify",
-    "brew-cask:visual-studio-code",
-    "brew-cask:yubico-authenticator",
-    "brew-cask:zed",
-    "brew-cask:font-jetbrains-mono-nerd-font",
-  ]
+[mise.packages.linux.work]
+  # Empty today (work is macOS); populate when work moves to Linux — no
+  # template or structural changes needed, just data here.
+  flatpaks = []
