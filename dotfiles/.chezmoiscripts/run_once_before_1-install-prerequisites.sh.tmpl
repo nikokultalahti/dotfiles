@@ -15,7 +15,7 @@ install_bitwarden_cli() {
     # one-time interactive step on a brand-new machine.
     if ! bw login --check >/dev/null 2>&1; then
         bw config server https://vault.bitwarden.eu
-        bw login
+        bw login --apikey
     fi
 }
 
