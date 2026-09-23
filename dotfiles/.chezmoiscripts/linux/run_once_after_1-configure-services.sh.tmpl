@@ -1,0 +1,11 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+# Enables GNOME Software background updates and the rootless Podman socket
+
+set -e
+
+gsettings set org.gnome.software download-updates true
+gsettings set org.gnome.software download-updates-notify true
+
+systemctl --user enable --now podman.socket
+{{ end -}}
