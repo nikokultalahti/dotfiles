@@ -8,6 +8,14 @@
 # actually exists, at which point it installs the extensions and stops
 # retrying.
 #
+# IMPORTANT: chezmoi stops the *entire* apply as soon as any script fails, so
+# this expected failure would otherwise silently skip every script that sorts
+# after this one alphabetically (e.g. everything under .chezmoiscripts/linux/).
+# `chezmoi apply`/`chezmoi init --apply` MUST be run with `-k`/`--keep-going`
+# for the rest of the apply (rpm-ostree config, GNOME updates, Podman socket,
+# etc.) to actually run while this is still failing. See README.md and
+# docs/silverblue-install-guide.md.
+#
 # Manifest hash (do not remove, forces a re-run on data changes):
 # {{ (dict "extensions" .extensions | toJson) | sha256sum }}
 

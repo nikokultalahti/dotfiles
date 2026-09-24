@@ -25,8 +25,16 @@ chezmoi manages.
 To set up your dotfiles on a new machine, run:
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply nikokultalahti
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply -k nikokultalahti
 ```
+
+The `-k`/`--keep-going` flag matters, not just style: chezmoi stops the entire
+apply as soon as any single script fails, and (Linux) the VS Code extensions
+script is *expected* to fail until VS Code is actually installed (see
+[`docs/silverblue-install-guide.md`](docs/silverblue-install-guide.md)).
+Without `-k`, that one expected failure would silently skip every script that
+happens to sort after it alphabetically — including rpm-ostree, GNOME
+updates, and the Podman socket setup.
 
 This single command installs chezmoi, then applies the dotfiles, which in turn:
 1. Installs mise appropriate password manager — see

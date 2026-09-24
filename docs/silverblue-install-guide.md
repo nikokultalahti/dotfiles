@@ -28,8 +28,15 @@ systemctl reboot
 
 Run:
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply nikokultalahti
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply -k nikokultalahti
 ```
+
+The `-k`/`--keep-going` flag is required, not optional: chezmoi stops the
+*entire* apply as soon as any script fails, and the VS Code extensions script
+(see below) is expected to fail until `code` is actually installed. Without
+`-k`, that one failure would silently skip every script that sorts after it —
+including the ones that configure rpm-ostree, GNOME updates, and the Podman
+socket.
 
 This also sets up the VS Code yum repo (`/etc/yum.repos.d/vscode.repo`), which
 the RPM-Ostree step below needs. VS Code extension installation will fail and
@@ -56,9 +63,10 @@ systemctl reboot
 ## Finish bootstrap
 
 Run `chezmoi apply` again — `code` now exists, so this installs the VS Code
-extensions:
+extensions. `-k` is no longer strictly necessary once VS Code is installed,
+but harmless to keep:
 ```bash
-chezmoi apply
+chezmoi apply -k
 ```
 
 ## Configure
