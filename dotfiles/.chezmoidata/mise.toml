@@ -4,6 +4,10 @@
   tools = [
     "aqua:atuinsh/atuin",
     "aqua:sharkdp/bat",
+    # Must match the exact key run_once_before_1-install-prerequisites.sh.tmpl's
+    # `mise use -g aqua:bitwarden/clients` writes, or chezmoi overwriting this
+    # file later drops that pinned version and mise's bw shim fails with
+    # "No version is set for shim: bw".
     "aqua:bitwarden/clients",
     "aqua:carapace-sh/carapace-bin",
     "aqua:eza-community/eza",

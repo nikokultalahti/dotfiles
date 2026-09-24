@@ -12,7 +12,7 @@ install_mise() {
 }
 
 install_bitwarden_cli() {
-    command -v bw >/dev/null 2>&1 || "$HOME/.local/bin/mise" use -g bitwarden
+    command -v bw >/dev/null 2>&1 || "$HOME/.local/bin/mise" use -g aqua:bitwarden/clients
     if ! bw login --check >/dev/null 2>&1; then
         bw config server https://vault.bitwarden.eu
         bw login --apikey
