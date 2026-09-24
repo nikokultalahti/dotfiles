@@ -14,6 +14,12 @@
 
 [bitwarden]
     unlock = "auto"
+    # bw is installed via mise (run_once_before_1-install-prerequisites.sh.tmpl),
+    # not a system package, so it's not guaranteed to be on chezmoi's own
+    # PATH (a run_once_before_ script's PATH changes don't propagate back to
+    # the chezmoi process itself). Point at mise's shim directly instead of
+    # relying on PATH lookup.
+    command = {{ printf "%s/.local/share/mise/shims/bw" .chezmoi.homeDir | quote }}
 
 [data]
     work = {{ $work }}
