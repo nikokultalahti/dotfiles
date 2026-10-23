@@ -1,0 +1,32 @@
+{{/*
+   chezmoi config template.
+   Rendered to ~/.config/chezmoi/chezmoi.yaml on `chezmoi init`.
+   Re-run `chezmoi init` after editing to regenerate.
+   https://www.chezmoi.io/docs/how-to/#re-create-your-config-file
+*/ -}}
+
+{{- $work := promptBoolOnce . "work" "Is this a work machine (y/n)" -}}
+
+{{- $email := "hello@nikokultalahti.com" -}}
+{{- if $work -}}
+    {{- $email = promptStringOnce . "email" "Git email address for the author/committer" -}}
+{{- end -}}
+
+{{- /* bw comes from Homebrew, which may not be on chezmoi's own PATH (a
+       run_once_before_ script's PATH changes don't propagate back to the
+       chezmoi process), so point at it by its Homebrew location. */ -}}
+{{- $bw := "/home/linuxbrew/.linuxbrew/bin/bw" -}}
+{{- if eq .chezmoi.os "darwin" -}}
+    {{- $bw = "/opt/homebrew/bin/bw" -}}
+    {{- if eq .chezmoi.arch "amd64" -}}
+        {{- $bw = "/usr/local/bin/bw" -}}
+    {{- end -}}
+{{- end -}}
+
+bitwarden:
+  unlock: auto
+  command: {{ $bw | quote }}
+
+data:
+  work: {{ $work }}
+  email: {{ $email | quote }}

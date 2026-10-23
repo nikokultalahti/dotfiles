@@ -1,0 +1,7 @@
+{{- /* Work machines use the settings captured from the work Mac; personal
+       machines use their own set. */ -}}
+{{ if .work -}}
+{{ template "zed-settings-work.json" . }}
+{{- else -}}
+{{ template "zed-settings-personal.json" . }}
+{{- end -}}

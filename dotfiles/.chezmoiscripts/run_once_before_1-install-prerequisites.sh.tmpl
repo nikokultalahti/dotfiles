@@ -1,32 +1,40 @@
-#!/bin/sh
-# Installs mise and the password manager CLI needed by later steps.
+#!/bin/bash
+# Makes sure Homebrew and the Bitwarden CLI are available and logged in.
+# Runs before chezmoi renders the templates that read secrets from Bitwarden.
 
-set -eu
+set -euo pipefail
 
-install_mise() {
-    command -v mise >/dev/null 2>&1 && return 0
-    curl -fsSL https://mise.run | sh
+{{ template "find-brew.sh" . }}
+
+install_homebrew() {
+    load_brew && return 0
+
+    # NikOS installs Homebrew in a first-boot service; give it time to finish
+    # before falling back to the official installer.
+    if [ "$(uname -s)" = "Linux" ]; then
+        echo "[-] Waiting for the first-boot Homebrew setup [-]"
+        for _ in $(seq 1 36); do
+            load_brew && return 0
+            sleep 5
+        done
+    fi
+
+    echo "[-] Installing Homebrew [-]"
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    load_brew || { echo "Homebrew installation failed" >&2; exit 1; }
 }
 
 install_bitwarden_cli() {
-    command -v bw >/dev/null 2>&1 || "$HOME/.local/bin/mise" use -g aqua:bitwarden/clients
-    if ! bw login --check >/dev/null 2>&1; then
+    command -v bw >/dev/null 2>&1 || brew install bitwarden-cli
+
+    if [ "$(bw config server 2>/dev/null || true)" != "https://vault.bitwarden.eu" ]; then
         bw config server https://vault.bitwarden.eu
-        bw login --apikey
+    fi
+
+    if ! bw login --check >/dev/null 2>&1; then
+        bw login
     fi
 }
 
-{{ if .work -}}
-install_dashlane_cli() {
-    command -v dcli >/dev/null 2>&1 && return 0
-    "$HOME/.local/bin/mise" bootstrap packages use -g brew:dashlane/tap/dashlane-cli
-}
-{{ end -}}
-
-install_mise
-export PATH="$HOME/.local/share/mise/shims:$PATH"
-
+install_homebrew
 install_bitwarden_cli
-{{ if .work -}}
-install_dashlane_cli
-{{ end -}}

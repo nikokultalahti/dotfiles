@@ -1,0 +1,38 @@
+#!/bin/bash
+# Installs the VS Code extensions declared in .chezmoidata/extensions.yaml.
+# Does nothing if VS Code isn't installed. It runs on every apply, so the
+# extensions get installed on the first apply after VS Code appears.
+
+set -uo pipefail
+
+{{ template "find-brew.sh" . }}
+load_brew || true
+
+if ! command -v code >/dev/null 2>&1; then
+    echo "VS Code is not installed, skipping extensions"
+    exit 0
+fi
+
+installed="$(code --list-extensions)"
+
+install_extension() {
+    if printf '%s\n' "$installed" | grep -qixF "$1"; then
+        return 0
+    fi
+    echo "Installing VS Code extension $1"
+    code --force --install-extension "$1" || echo "Failed to install $1" >&2
+}
+
+{{ range .extensions.vscode.common -}}
+install_extension {{ . | quote }}
+{{ end -}}
+{{ if .work -}}
+{{ range .extensions.vscode.work -}}
+install_extension {{ . | quote }}
+{{ end -}}
+{{ else -}}
+{{ range .extensions.vscode.personal -}}
+install_extension {{ . | quote }}
+{{ end -}}
+{{ end -}}
+exit 0

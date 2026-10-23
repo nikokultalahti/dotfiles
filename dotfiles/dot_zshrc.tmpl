@@ -1,9 +1,4 @@
-
-#
-# .zshrc is sourced in interactive shells.
-# It should contain commands to set up aliases,
-# functions, options, key bindings, etc.
-#
+# .zshrc
 
 autoload -U compinit
 compinit
@@ -11,81 +6,76 @@ compinit
 # Allow tab completion in the middle of a word
 setopt COMPLETE_IN_WORD
 
-{{ if eq .chezmoi.os "darwin" }}
-# mise's brew/brew-cask backends install formulae/casks without Homebrew
-# itself, but still lay them out under the standard Homebrew prefix.
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-{{ end }}
+# Homebrew (macOS: /opt/homebrew, Linux: /home/linuxbrew); sets
+# HOMEBREW_PREFIX and puts brew-installed tools on PATH
+for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew /home/linuxbrew/.linuxbrew/bin/brew; do
+    if [[ -x "$brew_bin" ]]; then
+        eval "$("$brew_bin" shellenv)"
+        break
+    fi
+done
+unset brew_bin
 
-# Activate mise (installs/manages all tools and apps)
-eval "$(mise activate zsh)"
+# Ensure ~/bin and ~/.local/bin are in $PATH
+if ! [[ "$PATH" =~ "$HOME/bin" ]]; then
+    PATH="$HOME/bin:$PATH"
+fi
+if ! [[ "$PATH" =~ "$HOME/.local/bin:" ]]; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+export PATH
 
-# mise: GitHub token (avoids API rate limiting for aqua/github tool backends)
-[ -f "$HOME/.config/mise/env" ] && . "$HOME/.config/mise/env"
-
-# Set SSH AUTH SOCK for Bitwarden
-{{ if eq .chezmoi.os "darwin" }}
-export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
-{{ else }}
-export SSH_AUTH_SOCK="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
-{{ end }}
-
-# Initialize atuin, Starship, Zoxide, tv
-eval "$(atuin init zsh)"
+# Initialize CLI tools
 eval "$(starship init zsh)"
+eval "$(atuin init zsh)"
 eval "$(zoxide init zsh)"
 eval "$(tv init zsh)"
 
-# source zsh autosuggestions and syntax highlightning
-{{ if eq .chezmoi.os "darwin" }}
-if suggestions_prefix="$(mise bootstrap packages where brew:zsh-autosuggestions 2>/dev/null)"; then
-    source "$suggestions_prefix/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+# Bitwarden SSH agent
+{{ if eq .chezmoi.os "darwin" -}}
+export SSH_AUTH_SOCK="$HOME/.bitwarden-ssh-agent.sock"
+{{- else -}}
+export SSH_AUTH_SOCK="$HOME/.var/app/com.bitwarden.desktop/data/.bitwarden-ssh-agent.sock"
+{{- end }}
+
+# zsh-autosuggestions and zsh-syntax-highlighting (installed via Homebrew)
+if [[ -n "$HOMEBREW_PREFIX" ]]; then
+    source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" 2>/dev/null || true
+    source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" 2>/dev/null || true
 fi
-if highlighting_prefix="$(mise bootstrap packages where brew:zsh-syntax-highlighting 2>/dev/null)"; then
-    source "$highlighting_prefix/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-fi
-unset suggestions_prefix highlighting_prefix
-{{ else }}
-# Installed via rpm-ostree layering, not mise/Homebrew.
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null || true
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null || true
-{{ end }}
 
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 
-# Add Carapace
-export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+# Add Carapace completions
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense'
 zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
 source <(carapace _carapace)
 
-{{ if eq .chezmoi.os "darwin" }}
-# Add gcloud git-credential.helper to PATH
-# (mise's brew-cask backend has no `where` lookup for casks yet, so this
-# assumes the standard Homebrew Caskroom layout under /opt/homebrew)
-if [ -f "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc" ]; then
-    source "/opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+{{ if .work -}}
+# Google Cloud SDK & work toolchains (macOS)
+if [[ -f "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc" ]]; then
+    source "$HOMEBREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
 fi
 
 # Fixes Ghostty backspace bug over gcloud compute ssh & IAP tunnels
 gcloud() {
-    # Detects if 'compute ssh' is invoked anywhere in the command arguments
     if [[ "$*" == *"compute ssh"* ]]; then
         TERM=xterm-256color command gcloud "$@"
     else
         command gcloud "$@"
     fi
 }
-{{ end }}
 
-# Fixes SSH Remote issues with ghosttty
+# Fixes SSH Remote issues with Ghostty
 if [[ -n "$SSH_CONNECTION" ]]; then
     export TERM=xterm-256color
 fi
 
+{{ end -}}
+# ==============================================================================
 # ALIASES
-
-# eza for ls
+# ==============================================================================
 if command -v eza >/dev/null 2>&1; then
     alias ll='eza -al --icons=auto --group-directories-first'
     alias l.='eza -d .*'
@@ -93,16 +83,11 @@ if command -v eza >/dev/null 2>&1; then
     alias l1='eza -1'
 fi
 
-# bat for cat
 alias cat='bat --style=plain --pager=never' 2>/dev/null
 
-# cd aliases
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ~='cd ~'
 
-# kubectl aliases
 alias k='kubectl'
-alias kx='kubectx'
-
-alias cm='chezmoi'
+alias kcx='kubectx'

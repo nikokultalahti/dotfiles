@@ -1,0 +1,24 @@
+{{ if and (eq .chezmoi.os "linux") (not .work) -}}
+#!/bin/bash
+# Installs the per-user Flatpaks declared in .chezmoidata/packages.yaml.
+# The NikOS image installs its own default set; this adds the rest.
+# chezmoi re-runs this script whenever the list below changes.
+
+set -uo pipefail
+
+flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+failed=0
+for app in {{ range .packages.flatpaks.personal }}{{ . | quote }} {{ end }}; do
+    if flatpak info --user "$app" >/dev/null 2>&1; then
+        echo "Already installed: $app"
+    elif flatpak install --user --noninteractive flathub "$app"; then
+        echo "Installed: $app"
+    else
+        echo "Failed to install: $app" >&2
+        failed=1
+    fi
+done
+
+exit "$failed"
+{{ end -}}

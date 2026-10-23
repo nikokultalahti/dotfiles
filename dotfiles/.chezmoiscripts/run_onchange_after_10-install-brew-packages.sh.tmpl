@@ -1,0 +1,45 @@
+#!/bin/bash
+# Installs the Homebrew packages declared in .chezmoidata/packages.yaml.
+# chezmoi re-runs this script whenever the rendered Brewfile below changes,
+# so adding or removing a package in the data file is enough.
+
+set -euo pipefail
+
+{{ template "find-brew.sh" . }}
+
+load_brew || { echo "Homebrew is not installed" >&2; exit 1; }
+
+# Homebrew only loads third-party taps once they are trusted.
+# shellcheck disable=SC2043 # personal machines have a single tap
+for tap in {{ range .packages.taps.common }}{{ . | quote }} {{ end }}{{ if .work }}{{ range .packages.taps.work }}{{ . | quote }} {{ end }}{{ end }}; do
+    brew tap "$tap"
+    if brew trust --help >/dev/null 2>&1; then
+        brew trust --tap "$tap"
+    fi
+done
+
+echo "[-] Installing Homebrew packages [-]"
+brew bundle --no-upgrade --file=- <<'BREWFILE'
+{{ range .packages.brews.common -}}
+brew {{ . | quote }}
+{{ end -}}
+{{ if .work -}}
+{{ range .packages.brews.work -}}
+brew {{ . | quote }}
+{{ end -}}
+{{ else -}}
+{{ range .packages.brews.personal -}}
+brew {{ . | quote }}
+{{ end -}}
+{{ end -}}
+{{ if and .work (eq .chezmoi.os "darwin") -}}
+{{ range .packages.casks.work -}}
+cask {{ . | quote }}
+{{ end -}}
+{{ end -}}
+BREWFILE
+
+# Keeps the Litra light switching on and off with the webcam.
+brew services start timrogers/tap/litra-autotoggle
+
+echo "[-] Homebrew packages installed [-]"

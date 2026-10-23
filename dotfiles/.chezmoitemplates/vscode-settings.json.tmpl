@@ -14,4 +14,9 @@
     "git.enableCommitSigning": true,
     "dev.containers.dockerComposePath": "podman-compose",
     "dev.containers.dockerPath": "podman",
-    
+    "dev.containers.dockerSocketPath": "/run/user/{{ .chezmoi.uid }}/podman/podman.sock",
+    "containers.containerClient": "com.microsoft.visualstudio.containers.podman",
+    "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.podmancompose",
+    "update.mode": "none",
+    "chat.titleBar.signIn.enabled": false
+}

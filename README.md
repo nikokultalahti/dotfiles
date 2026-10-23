@@ -2,74 +2,88 @@
 
 My personal dotfiles, managed with [chezmoi](https://www.chezmoi.io/).
 
-The actual chezmoi source lives under [`dotfiles/`](dotfiles) (see `.chezmoiroot`) —
-this keeps repo-level files (this README, `TODO.md`, `docs/`) separate from what
-chezmoi manages. 
+The actual chezmoi source lives under [`dotfiles/`](dotfiles) (see `.chezmoiroot`),
+which keeps repo-level files (this README) separate from what chezmoi manages.
+
+They are meant for two machines:
+
+- **Personal:** [NikOS](https://github.com/nikokultalahti/nikos) on Linux. chezmoi and
+  Homebrew come with the image.
+- **Work:** macOS.
 
 ## Features
 
-- **Cross-platform**: Supports macOS and Linux (Fedora Silverblue especially).
-- **Conditional Configuration**: A single `work` boolean (prompted once, at
-  init) drives all personal/work branching (`{{ if .work }}`); OS branching
-  uses `.chezmoi.os` directly.
-- **Templating**: Uses chezmoi's templating system for dynamic values.
-- **Secrets Management**: Integrates with password managers (native chezmoi
-  integration, no separate secrets tooling) for pulling required
-  secrets and configurations for templating.
-- **Tool/App Management**: All tools and apps are installed via [mise](https://mise.jdx.dev/), declared in
-  [`.chezmoidata/mise.toml`](dotfiles/.chezmoidata/mise.toml) and
-  [`.chezmoidata/extensions.toml`](dotfiles/.chezmoidata/extensions.toml) for VSCode extensions.
+- **Cross-platform:** Linux and macOS. A single `work` boolean, asked once at
+  init, drives all personal/work branching (`{{ if .work }}`); OS branching uses
+  `.chezmoi.os`.
+- **Homebrew everywhere:** CLI tools, and casks on macOS, are installed with
+  Homebrew from [`.chezmoidata/packages.yaml`](dotfiles/.chezmoidata/packages.yaml).
+- **Flatpaks on Linux:** apps the NikOS image doesn't already provide are
+  installed per user from the same file.
+- **Secrets from Bitwarden:** read through chezmoi's native Bitwarden support.
+  Nothing secret is stored in this repository, and SSH keys stay in Bitwarden's
+  SSH agent.
+- **Data in YAML:** package lists and VS Code extensions live in
+  [`.chezmoidata/`](dotfiles/.chezmoidata) as YAML.
 
-## Quick Start
+## Quick start
 
-To set up your dotfiles on a new machine, run:
+### NikOS
+
+chezmoi is already installed:
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply -k nikokultalahti
+chezmoi init --apply nikokultalahti
 ```
 
-The `-k`/`--keep-going` flag matters, not just style: chezmoi stops the entire
-apply as soon as any single script fails, and (Linux) the VS Code extensions
-script is *expected* to fail until VS Code is actually installed (see
-[`docs/silverblue-install-guide.md`](docs/silverblue-install-guide.md)).
-Without `-k`, that one expected failure would silently skip every script that
-happens to sort after it alphabetically — including rpm-ostree, GNOME
-updates, and the Podman socket setup.
+### macOS
 
-This single command installs chezmoi, then applies the dotfiles, which in turn:
-1. Installs mise appropriate password manager — see
-   [`run_once_before_1-install-prerequisites.sh.tmpl`](dotfiles/.chezmoiscripts/run_once_before_1-install-prerequisites.sh.tmpl).
-2. Prompts for whether this is a work machine, and work email address if so.
-3. Applies all dotfiles and templates.
-4. Installs every remaining tool/app via mise, and for Linux: configures
-   Flathub priority, GNOME background updates, the Podman socket, rpm-ostree
-   automatic update staging, and a daily mise/flatpak update timer.
+```bash
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply nikokultalahti
+```
 
-On Fedora Silverblue specifically, VS Code needs a manual layering step + reboot
-between two `chezmoi apply` runs (chezmoi sets up the yum repo, but rpm-ostree
-layering itself is manual) — see
-[`docs/silverblue-install-guide.md`](docs/silverblue-install-guide.md).
+### What happens
+
+1. chezmoi asks whether this is a work machine, and for the git email if so.
+2. The prerequisites script
+   ([`run_once_before_1-install-prerequisites.sh.tmpl`](dotfiles/.chezmoiscripts/run_once_before_1-install-prerequisites.sh.tmpl))
+   makes sure Homebrew is installed, installs the Bitwarden CLI with it,
+   points it at the EU server and asks you to log in.
+   On NikOS it first waits for the image's first-boot Homebrew setup to finish.
+3. chezmoi applies all dotfiles and templates.
+4. Homebrew installs the packages (and the casks on macOS), and the per-user
+   Flatpaks are installed on Linux.
+5. VS Code extensions are installed if `code` exists. Otherwise that step is
+   skipped, and picks up on a later `chezmoi apply`.
 
 ## Requirements
 
-- **Bitwarden account**, logged in (`bw login`) the first time secrets are
-  needed — the prerequisites script prompts for this automatically.
-- **Bitwarden secure notes** that must exist before secrets-dependent
-  templates render:
-  - `dotfiles-sshconfig-personal` / `dotfiles-sshconfig-work` — extra
+- A **Bitwarden account** on the EU server (`vault.bitwarden.eu`).
+- **Bitwarden secure notes** that must exist before the SSH config renders:
+  - `dotfiles-sshconfig-personal` and `dotfiles-sshconfig-work`: extra
     `~/.ssh/config` entries.
-  - `dotfiles-mise-github-token` — a GitHub token, exported as
-    `MISE_GITHUB_TOKEN` to avoid API rate limiting on mise's aqua/github tool
-    installs.
-  - `dotfiles-nextdns-conf` (Linux + personal only) — contents of
-    `/etc/systemd/resolved.conf.d/nextdns.conf`.
+- The **Bitwarden SSH agent** enabled, for git signing and SSH. On Linux that is
+  the Bitwarden desktop Flatpak (installed here); on macOS the cask.
 
 ## Usage
 
-- **Update dotfiles**: Run `chezmoi update` to pull the latest changes and `chezmoi apply` to apply them.
-- **Add new files**: Use `chezmoi add <file>` to add a new file to the dotfiles repository.
-- **Edit templates**: Modify files under `~/.local/share/chezmoi/dotfiles/` and run `chezmoi apply` to update the managed files.
-- **Add/remove a tool or app**: Edit
-  [`.chezmoidata/mise.toml`](dotfiles/.chezmoidata/mise.toml) (or
-  `extensions.toml` for VS Code extensions), then `chezmoi apply`.
-- **Re-run tool/app installation only**: `mise install && mise bootstrap packages apply --yes`.
+- **Update:** `chezmoi update`.
+- **Add files:** `chezmoi add <file>`.
+- **Edit templates:** change files under `~/.local/share/chezmoi/dotfiles/` and
+  run `chezmoi apply`.
+- **Add or remove a package, app or extension:** edit
+  [`packages.yaml`](dotfiles/.chezmoidata/packages.yaml) or
+  [`extensions.yaml`](dotfiles/.chezmoidata/extensions.yaml), then
+  `chezmoi apply`. The install scripts re-run when their content changes.
+
+## Notes
+
+- **zsh on Linux** comes from Homebrew, so it isn't a registered login shell. Set
+  Ptyxis to start a terminal with a custom command pointing at
+  `/home/linuxbrew/.linuxbrew/bin/zsh`.
+- **Updates on Linux:** the NikOS image already updates the OS, Flatpaks and
+  Homebrew on timers, so there is nothing for chezmoi to schedule.
+- **litra-autotoggle** is started as a Homebrew service by the package script.
+- **Migrating an existing machine:** the chezmoi config template is now YAML
+  (`.chezmoi.yaml.tmpl`). Delete the old `~/.config/chezmoi/chezmoi.toml`, then run
+  `chezmoi init` again so the new config is generated.

@@ -1,0 +1,121 @@
+# Everything installed by .chezmoiscripts/run_onchange_after_10-install-brew-packages.sh.tmpl
+# (Homebrew) and run_onchange_after_20-install-flatpaks.sh.tmpl (Flatpak).
+#
+# Scoped by role: "common" applies everywhere, "personal" and "work" depend on
+# the `work` answer given at `chezmoi init`. The assumption is that personal
+# is Linux (NikOS) and work is macOS, so casks are work-only and Flatpaks
+# are personal-only.
+packages:
+  taps:
+    common:
+      - timrogers/tap
+    work:
+      - fluxcd/tap
+      - nikitabobko/tap
+
+  brews:
+    common:
+      - atuin
+      - bat
+      - bitwarden-cli
+      - carapace
+      - eza
+      - fd
+      - fzf
+      - gh
+      - jq
+      - litra
+      - timrogers/tap/litra-autotoggle
+      - pre-commit
+      - ripgrep
+      - shellcheck
+      - starship
+      - tealdeer
+      - television
+      - yq
+      - zoxide
+      - zsh-autosuggestions
+      - zsh-syntax-highlighting
+    personal:
+      - block-goose-cli
+      - fabric-ai
+      - opencode
+      - yt-dlp
+      - zsh
+    work:
+      - fluxcd/tap/flux
+      - glab
+      - googleworkspace-cli
+      - k9s
+      - kubeconform
+      - kubectx
+      - kubernetes-cli
+      - kustomize
+      - opentofu
+      - podman
+      - podman-compose
+      - sops
+      - terraformer
+      - terragrunt
+      - tfenv
+
+  # macOS only
+  casks:
+    work:
+      - nikitabobko/tap/aerospace
+      - antigravity
+      - bitwarden
+      - claude-code
+      - font-jetbrains-mono-nerd-font
+      - gcloud-cli
+      - ghostty
+      - google-chrome
+      - obsidian
+      - podman-desktop
+      - raycast
+      - slack
+      - visual-studio-code
+      - yubico-authenticator
+      - zed
+
+  # Linux only, installed per user. The NikOS image already installs Bazaar,
+  # the GNOME apps and a few more (see its flatpaks.yml/gnome.yml), so only
+  # the extras are listed here.
+  flatpaks:
+    personal:
+      - org.gtk.Gtk3theme.adw-gtk3
+      - org.gtk.Gtk3theme.adw-gtk3-dark
+      - io.github.getnf.embellish # Nerd Fonts
+      - com.bitwarden.desktop
+      - com.yubico.yubioath
+      - dev.qwery.AddWater
+      - io.github.qwersyk.Newelle
+      - app.drey.Dialect
+      - cafe.avery.Delfin
+      - com.github.PintaProject.Pinta
+      - com.nextcloud.desktopclient.nextcloud
+      - de.haeckerfelix.Fragments
+      - de.schmidhuberj.tubefeeder # Pipeline
+      - org.nickvision.tubeconverter # Parabolic
+      - dev.geopjr.Tuba
+      - io.github.alainm23.planify
+      - org.gnome.World.Iotas
+      - org.gnome.gitlab.cheywood.Pulp
+      - org.gnome.gitlab.somas.Apostrophe
+      - org.signal.Signal
+      - re.sonny.Eloquent
+      - app.fotema.Fotema
+      - com.github.maoschanz.drawing
+      - io.gitlab.adhami3310.Converter
+      - org.mozilla.thunderbird_esr
+      - com.github.jeromerobert.pdfarranger
+      - page.codeberg.censor.Censor
+      - md.obsidian.Obsidian
+      - dev.zed.Zed
+      - re.sonny.Commit
+      - de.wwwtech.gitte
+      - me.iepure.devtoolbox
+      - com.mardojai.ForgeSparks
+      - com.github.marhkb.Pods
+      - org.gnome.Boxes
+      - com.ranfdev.DistroShelf

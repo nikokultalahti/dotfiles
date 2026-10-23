@@ -47,20 +47,26 @@
     "open_ai_compatible_api": {
       "model": ""
     },
+    "codestral": {
+      "api_url": "https://codestral.mistral.ai"
+    },
     "provider": "zed"
   },
   "text_rendering_mode": "platform_default",
   "buffer_font_size": 14.0,
   "buffer_font_weight": 400.0,
   "git_panel": {
-    "tree_view": true,
+    "group_by": "staging",
+    "tree_view": false,
     "dock": "left",
   },
   "ui_font_family": "JetBrainsMono Nerd Font",
   "buffer_font_family": "JetBrainsMono Nerd Font",
   "context_servers": {},
   "agent": {
-    "sidebar_side": "right",
+    "threads_sidebar": {
+      "position": "right"
+    },
     "dock": "right",
     "default_profile": "ask",
     "default_model": {
