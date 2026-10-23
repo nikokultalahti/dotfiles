@@ -26,6 +26,7 @@ packages:
       - jq
       - litra
       - timrogers/tap/litra-autotoggle
+      - opencode
       - pre-commit
       - ripgrep
       - shellcheck
@@ -39,7 +40,6 @@ packages:
     personal:
       - block-goose-cli
       - fabric-ai
-      - opencode
       - yt-dlp
       - zsh
     work:
@@ -83,20 +83,14 @@ packages:
   # the extras are listed here.
   flatpaks:
     personal:
-      - org.gtk.Gtk3theme.adw-gtk3
-      - org.gtk.Gtk3theme.adw-gtk3-dark
       - io.github.getnf.embellish # Nerd Fonts
       - com.bitwarden.desktop
       - com.yubico.yubioath
       - dev.qwery.AddWater
       - io.github.qwersyk.Newelle
-      - app.drey.Dialect
       - cafe.avery.Delfin
-      - com.github.PintaProject.Pinta
-      - com.nextcloud.desktopclient.nextcloud
       - de.haeckerfelix.Fragments
       - de.schmidhuberj.tubefeeder # Pipeline
-      - org.nickvision.tubeconverter # Parabolic
       - dev.geopjr.Tuba
       - io.github.alainm23.planify
       - org.gnome.World.Iotas
@@ -105,12 +99,7 @@ packages:
       - org.signal.Signal
       - re.sonny.Eloquent
       - app.fotema.Fotema
-      - com.github.maoschanz.drawing
-      - io.gitlab.adhami3310.Converter
-      - org.mozilla.thunderbird_esr
       - com.github.jeromerobert.pdfarranger
-      - page.codeberg.censor.Censor
-      - md.obsidian.Obsidian
       - dev.zed.Zed
       - re.sonny.Commit
       - de.wwwtech.gitte
