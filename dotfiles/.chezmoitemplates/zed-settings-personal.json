@@ -8,6 +8,7 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   "terminal": {
+    "dock": "bottom",
     "shell": {
       "program": "/home/linuxbrew/.linuxbrew/bin/zsh"
     }
